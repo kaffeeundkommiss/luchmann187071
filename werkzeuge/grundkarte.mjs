@@ -45,8 +45,19 @@ const RL = [["Elbe", 14.5, 50.45, -20], ["Oder", 15.9, 52.45, 70], ["Donau", 15.
 const CL = [["FRANKREICH", 2.3, 48.75], ["PREUSSEN", 13.8, 52.6], ["SACHSEN", 13.2, 50.95], ["BÖHMEN", 14.2, 49.75], ["MÄHREN", 16.65, 49.55],
   ["ÖSTERREICH", 15.1, 48.0], ["UNGARN", 17.6, 47.6], ["BAYERN", 11.3, 49.0], ["HESSEN", 8.9, 50.55], ["BELGIEN", 4.6, 50.55], ["LUX.", 6.08, 49.72], ["SCHWEIZ", 8.0, 46.9]]
   .map(([n, lo, la]) => ({n, p: pr([lo, la]).map(v => +v.toFixed(1))}));
+// Rahmen der beiden Detailkarten (Kernausschnitte aus detail.mjs)
+const FR = {"1866": [12.25, 48.0, 17.55, 52.35], "1870": [-0.35, 46.95, 8.35, 51.1]};
+const frames = {};
+for (const [k, [w, s, e, n]] of Object.entries(FR)) {
+  const ring = [];
+  for (let t = 0; t <= 20; t++) ring.push([w + (e - w) * t / 20, n]);
+  for (let t = 1; t <= 20; t++) ring.push([e, n - (n - s) * t / 20]);
+  for (let t = 1; t <= 20; t++) ring.push([e - (e - w) * t / 20, s]);
+  for (let t = 1; t <= 20; t++) ring.push([w, s + (n - s) * t / 20]);
+  frames[k] = {d: "M" + ring.map(p => pr(p).map(v => v.toFixed(1)).join(",")).join("L") + "Z", nw: pr([w, n]).map(v => +v.toFixed(1)), sw: pr([w, s]).map(v => +v.toFixed(1))};
+}
 // Maßstab: Kartenpixel je 100 km auf 50° N
 const a = pr([10, 50]), b = pr([10 + 100 / (111.32 * Math.cos(50 * Math.PI / 180)), 50]);
 const km100 = +Math.hypot(b[0] - a[0], b[1] - a[1]).toFixed(2);
-fs.writeFileSync("grund.json", JSON.stringify({W, H, shapes, borders, coast, rivers, riversSmall, grat, pts, rl: RL, cl: CL, km100}));
+fs.writeFileSync("grund.json", JSON.stringify({W, H, shapes, borders, coast, rivers, riversSmall, grat, pts, rl: RL, cl: CL, km100, frames}));
 console.error("shapes", shapes.length, "rivers", rivers.length, riversSmall.length, "pts", Object.keys(pts).length, "km100", km100);

@@ -15,7 +15,7 @@ E = lambda t: html.escape(str(t), quote=True)
 SUBSTYLE = (ROOT / "werkzeuge" / "seiten.css").read_text()
 INDEXSTYLE = (ROOT / "werkzeuge" / "karte.css").read_text()
 
-PAGES = [("index.html", "Karte"), ("abgleich.html", "Abgleich"), ("personen.html", "Personen"), ("tagebuch.html", "Tagebuch")]
+PAGES = [("index.html", "Übersicht"), ("karte-1866.html", "Karte 1866"), ("karte-1870.html", "Karte 1870/71"), ("abgleich.html", "Abgleich"), ("personen.html", "Personen"), ("tagebuch.html", "Tagebuch")]
 NAMES = json.load(open("werkzeuge/orte-namen.json"))
 
 def head(fn, title, desc, style, breit=False):
@@ -109,75 +109,7 @@ STATUS_LEGEND = """  <section class="sect" aria-labelledby="stH">
 """
 
 # ---------- Kartendaten ----------
-def build_data():
-    g = json.load(open("werkzeuge/grund.json"))
-    used = set(k for s in STEPS for k in s["moves"]) | set(k for s in STEPS for k in s.get("via", []))
-    big = ["berlin", "wien", "prag", "paris", "dresden", "leipzig", "muenchen", "frankfurt", "strassburg", "metz", "koeln", "luckau"]
-    keep = used | set(big)
-    g["pts"] = {k: v for k, v in g["pts"].items() if k in keep}
-    steps = []
-    for s in STEPS:
-        d = {k: s[k] for k in ("camp", "date", "dl", "moves", "title", "sub", "text", "check", "bel", "src", "note")}
-        if s.get("quote"): d["quote"] = list(s["quote"])
-        if s.get("dash"): d["dash"] = True
-        if s.get("mark"): d["mark"] = list(s["mark"])
-        if s.get("via"): d["lab"] = s["via"]
-        steps.append(d)
-    kd = {"map": g, "steps": steps, "names": {k: NAMES[k] for k in keep}, "big": big,
-          "bel": BEL, "belShort": {k: v[1] for k, v in BADGE.items()},
-          "srcNo": {k: srcno(k) for k in SRC}, "srcShort": {k: short_src(k) for k in SRC}}
-    Path("karte-daten.js").write_text("/* erzeugt mit werkzeuge/bau.py */\nwindow.KD = " + json.dumps(kd, ensure_ascii=False, separators=(",", ":")) + ";\n")
-
-def short_src(k):
-    return {"tb": "Tagebuch Luchmann", "rg": "Mueller 1875, Regimentsgeschichte", "gw": "GenWiki", "wp-reg": "Wikipedia: Gren.-Rgt. 12"}.get(k, SRC[k][0].split(" (")[0].replace("Wikipedia (de): ", "Wikipedia: ").rstrip("."))
-
-# ---------- index ----------
-def build_index():
-    desc = f"Karte zu den Kriegserlebnissen des Feldwebels Wilhelm Luchmann 1866 und 1870/71: {len(STEPS)} Stationen vom Einmarsch in Böhmen bis Le Mans, jede mit dem Abgleich gegen die Regimentsgeschichte von 1875."
-    h = head("index.html", "Feldwebel Luchmann 1866 und 1870/71", desc, INDEXSTYLE, breit=True)
-    h += "  <header>\n" + brand() + nav("index.html") + "  </header>\n"
-    h += """
-  <details class="intro" id="intro" open>
-    <summary><h2>Worum geht es?</h2><span class="tgl" aria-hidden="true"><span class="op">Einblenden</span><span class="cl">Ausblenden</span></span></summary>
-    <p>Wilhelm Luchmann (1844–1907) aus Luckau diente von 1864 an in der 9. Kompanie des Grenadier-Regiments Prinz Carl von Preußen (2. Brandenburgisches) Nr. 12. Er zog 1866 gegen Österreich und 1870/71 gegen Frankreich. Später schrieb er seine Erlebnisse in einem Heft nieder: „Kriegs-Erlebnisse von 1866 und 1870/71“. Die Familie hat die Handschrift 1994 abgeschrieben und gebunden.</p>
-    <p>Die Karte folgt seinem Text Schritt für Schritt und stellt jede Angabe der Regimentsgeschichte von 1875 gegenüber. Darin wird Luchmann mehrfach namentlich genannt: für Spichern mit dem Eisernen Kreuz II. Klasse, für Mars-la-Tour als Sergeant, der die 9. Kompanie führte und von französischen Reitern umgeritten wurde. Viele Daten und Zahlen im Tagebuch weichen aber ab. Mehr dazu auf den Seiten <a href="abgleich.html">Abgleich</a> und <a href="tagebuch.html">Tagebuch</a>.</p>
-    <p class="how"><b>So liest du die Karte:</b> „Abspielen“ startet den Ablauf, „Weiter“ und „Zurück“ gehen Schritt für Schritt. Die rote Linie zeigt Luchmanns Weg, gestrichelt sind Bahnfahrten und unsichere Wege. Der Weg von 1866 bleibt 1870 blass sichtbar. ✕ markiert eine Verwundung, ◆ ein anderes Ereignis. Die Karte zeigt heutige Grenzen und historische Landesnamen, beides schematisch. Gepunktet unterstrichene Begriffe lassen sich antippen; alle stehen im <a href="glossar.html">Glossar</a>.</p>
-  </details>
-
-  <section class="stage">
-    <div class="map" id="map">
-      <svg id="svg" viewBox="0 0 1000 640" role="img" aria-label="Karte Mitteleuropas mit Wilhelm Luchmanns Weg 1866 und 1870/71">
-        <rect x="-400" y="-400" width="1800" height="1440" fill="var(--sea)"/>
-        <path class="grat" id="grat"/>
-        <g id="countries"></g>
-        <path class="borders" id="borders"/>
-        <path class="river-s" id="riverS"/>
-        <path class="river-l" id="riverL"/>
-        <g id="rivLabels" aria-hidden="true"></g>
-        <g id="clabels" aria-hidden="true"></g>
-        <path class="route-all" id="routeAll"/>
-        <path class="trk-old" id="trkOld"/>
-        <path class="trk-dash" id="trkDash"/>
-        <path class="trk-solid" id="trkSolid"/>
-        <g id="places"></g>
-        <g id="events"></g>
-        <g id="cur"><g class="sc"><circle class="pulse" r="9"/><circle class="cur-ring" r="7"/></g></g>
-      </svg>
-      <div class="massstab" id="massstab" aria-hidden="true"><span class="ms-lab" id="msLab"></span><span class="ms-bar" id="msBar"></span></div>
-      <button class="mapbtn" id="zoomBtn" type="button" aria-pressed="true">Gesamtkarte</button>
-    </div>
-
-    <div class="legend legend-bar" aria-label="Legende">
-      <span><i></i>Luchmanns Weg</span>
-      <span><i class="d"></i>Bahnfahrt, unsicherer Weg</span>
-      <span><i class="o"></i>Weg 1866 (blass)</span>
-      <span><b class="x w">✕</b>Verwundung</span>
-      <span><b class="x">◆</b>Ereignis</span>
-      <span><i class="b"></i>Grenze heute (schematisch)</span>
-      <span><i class="r"></i>Fluss</span>
-    </div>
-
-    <section class="controls" aria-label="Zeitleiste">
+CONTROLS_PANEL = """    <section class="controls" aria-label="Zeitleiste">
       <div class="btns">
         <div class="btns-main">
           <button type="button" id="prev" aria-label="Vorheriger Schritt">◀ Zurück</button>
@@ -226,9 +158,198 @@ def build_index():
     </details>
   </section>
 
+"""
+
+
+MAPINFO = {
+  "1866": dict(file="karte-1866.html", label="Karte 1866", feldzug="Feldzug 1866", jahre="1864–1867", minKm=100, vilKm=230,
+    aria="Karte von Brandenburg, Sachsen, Böhmen und Mähren mit Wilhelm Luchmanns Weg 1864 bis 1867",
+    lede="Von der Garnison Schrimm über den Einmarsch in Böhmen, Gitschin und Königgrätz bis vor Wien, dann zurück über Prag nach Sachsen und Sorau. Dazu die Jahre 1864 und 1865 vor dem Krieg.",
+    other=("karte-1870.html", "Weiter zur Karte 1870/71")),
+  "1870": dict(file="karte-1870.html", label="Karte 1870/71", feldzug="Feldzug 1870/71", jahre="1870–1871", minKm=120, vilKm=260,
+    aria="Karte von Nordfrankreich und dem Rheinland mit Wilhelm Luchmanns Weg 1870 und 1871",
+    lede="Mit der Bahn an die Saar, dann Spichern, Mars-la-Tour, die Belagerung von Metz, die Eilmärsche zur Loire, Beaune-la-Rolande, Orléans und der Winterfeldzug bis Le Mans.",
+    other=("karte-1866.html", "Zurück zur Karte 1866")),
+}
+CAMP_STEPS = {c: [i for i, s in enumerate(STEPS) if s["camp"] == c] for c in MAPINFO}
+def step_link(i):
+    c = STEPS[i]["camp"]; return f'{MAPINFO[c]["file"]}#s{CAMP_STEPS[c].index(i) + 1}'
+
+def build_data(camp):
+    g = json.load(open(f"werkzeuge/karte-{camp}.json"))
+    W, H = g["W"], g["H"]
+    steps_c = [s for s in STEPS if s["camp"] == camp]
+    inside = lambda p: -8 <= p[0] <= W + 8 and -8 <= p[1] <= H + 8
+    route = [k for s in steps_c for k in s["moves"]]
+    off = [k for k in route if not inside(g["pts"][k])]
+    names = {k: NAMES[k] for k in set(route) | set(k for s in steps_c for k in s.get("via", []))}
+    if off:
+        # Orte außerhalb des Ausschnitts (1870: Sorau, Berlin, Braunschweig) laufen in einem Randpunkt zusammen
+        j = max(route.index(k) for k in off)
+        o, q = g["pts"][route[j]], g["pts"][route[j + 1]]
+        m = 26; t0 = 0.0
+        for n in range(1, 401):
+            t = n / 400; p = [o[0] + (q[0] - o[0]) * t, o[1] + (q[1] - o[1]) * t]
+            if m <= p[0] <= W - m and m <= p[1] <= H - m: t0 = t; break
+        g["pts"]["rand"] = [round(o[0] + (q[0] - o[0]) * t0, 1), round(o[1] + (q[1] - o[1]) * t0, 1)]
+        seen = []
+        for k in off:
+            if NAMES[k] not in seen: seen.append(NAMES[k])
+        names["rand"] = ", ".join(seen) + " ↗"
+    steps = []
+    for s in steps_c:
+        mv = []
+        for k in s["moves"]:
+            k = "rand" if k in off else k
+            if not mv or mv[-1] != k: mv.append(k)
+        d = {k: s[k] for k in ("camp", "date", "dl", "title", "sub", "text", "check", "bel", "src", "note")}
+        d["moves"] = mv
+        if s.get("quote"): d["quote"] = list(s["quote"])
+        if s.get("dash"): d["dash"] = True
+        if s.get("mark"): d["mark"] = list(s["mark"])
+        if s.get("via"): d["lab"] = s["via"]
+        steps.append(d)
+    used = set(k for s in steps for k in s["moves"]) | set(k for s in steps for k in s.get("lab", []))
+    g["pts"] = {k: v for k, v in g["pts"].items() if k in used}
+    g["cities"] = [c for c in g["cities"] if c["k"] not in used]
+    I = MAPINFO[camp]
+    kd = {"map": g, "steps": steps, "names": names, "camp": camp, "minKm": I["minKm"], "vilKm": I["vilKm"], "qpage": "quellen-karte.html",
+          "bel": BEL, "belShort": {k: v[1] for k, v in BADGE.items()},
+          "srcNo": {k: srcno(k) for k in SRC}, "srcShort": {k: short_src(k) for k in SRC}}
+    Path(f"karte-daten-{camp}.js").write_text("/* erzeugt mit werkzeuge/bau.py */\nwindow.KD = " + json.dumps(kd, ensure_ascii=False, separators=(",", ":")) + ";\n")
+    return g
+
+def short_src(k):
+    return {"tb": "Tagebuch Luchmann", "rg": "Mueller 1875, Regimentsgeschichte", "gw": "GenWiki", "wp-reg": "Wikipedia: Gren.-Rgt. 12"}.get(k, SRC[k][0].split(" (")[0].replace("Wikipedia (de): ", "Wikipedia: ").rstrip("."))
+
+SO_LIEST = """<p class="how"><b>So liest du die Karte:</b> „Abspielen“ startet den Ablauf, „Weiter“ und „Zurück“ gehen Schritt für Schritt. Die rote Linie zeigt Luchmanns Weg, gestrichelt sind Bahnfahrten und unsichere Wege. ✕ markiert eine Verwundung, ◆ ein anderes Ereignis. Beim Heranzoomen erscheinen Dörfer in heutiger Schreibweise, braune Linien sind Höhenlinien. Grenzen sind heutige, die Landesnamen historisch, beides schematisch. Gepunktet unterstrichene Begriffe lassen sich antippen; alle stehen im <a href="glossar.html">Glossar</a>.</p>"""
+MAP_SOURCES = "Grundkarte: Natural Earth (gemeinfrei), heutige Grenzen. Höhenlinien: Terrain Tiles (AWS Open Data, u. a. SRTM), geglättet. Dörfer: GeoNames über cities.json (CC BY 4.0), Auswahl nahe am Weg."
+
+def build_map(camp):
+    I = MAPINFO[camp]; g = build_data(camp); n = len(CAMP_STEPS[camp])
+    other_c = "1870" if camp == "1866" else "1866"
+    desc = f"{I['label']}: Feldwebel Wilhelm Luchmanns Weg {I['jahre']} in {n} Stationen, jede mit dem Abgleich gegen die Regimentsgeschichte von 1875."
+    h = head(I["file"], f"{I['label']}: Feldwebel Luchmann", desc, INDEXSTYLE, breit=True)
+    h += "  <header>\n" + brand() + nav(I["file"]) + "  </header>\n"
+    h += f"""
+  <details class="intro" id="intro" open>
+    <summary><h2>{I['feldzug']}</h2><span class="tgl" aria-hidden="true"><span class="op">Einblenden</span><span class="cl">Ausblenden</span></span></summary>
+    <p>{I['lede']} {n} Stationen, jede mit dem Abgleich gegen die Regimentsgeschichte von 1875. Worum es insgesamt geht, steht in der <a href="index.html">Übersicht</a>; der andere Feldzug hat eine eigene <a href="{MAPINFO[other_c]['file']}">{MAPINFO[other_c]['label']}</a>.</p>
+    {SO_LIEST}
+  </details>
+
+  <section class="stage">
+    <div class="map" id="map">
+      <svg id="svg" viewBox="0 0 {g['W']} {g['H']}" role="img" aria-label="{E(I['aria'])}">
+        <rect x="-900" y="-900" width="{g['W'] + 1800}" height="{g['H'] + 1800}" fill="var(--sea)"/>
+        <path class="grat" id="grat"/>
+        <g id="countries"></g>
+        <g id="relief" aria-hidden="true"><path class="cont-minor" id="contMinor"/><path class="cont-major" id="contMajor"/></g>
+        <path class="borders" id="borders"/>
+        <path class="river-s" id="riverS"/>
+        <path class="river-l" id="riverL"/>
+        <g id="rivLabels" aria-hidden="true"></g>
+        <g id="clabels" aria-hidden="true"></g>
+        <g id="villages" aria-hidden="true"></g>
+        <path class="route-all" id="routeAll"/>
+        <path class="trk-old" id="trkOld"/>
+        <path class="trk-dash" id="trkDash"/>
+        <path class="trk-solid" id="trkSolid"/>
+        <g id="places"></g>
+        <g id="events"></g>
+        <g id="cur"><g class="sc"><circle class="pulse" r="9"/><circle class="cur-ring" r="7"/></g></g>
+      </svg>
+      <div class="massstab" id="massstab" aria-hidden="true"><span class="ms-lab" id="msLab"></span><span class="ms-bar" id="msBar"></span></div>
+      <button class="mapbtn" id="zoomBtn" type="button" aria-pressed="true">Gesamtkarte</button>
+    </div>
+
+    <div class="legend legend-bar" aria-label="Legende">
+      <span><i></i>Luchmanns Weg</span>
+      <span><i class="d"></i>Bahnfahrt, unsicherer Weg</span>
+      <span><b class="x w">✕</b>Verwundung</span>
+      <span><b class="x">◆</b>Ereignis</span>
+      <span><i class="h"></i>Höhenlinie</span>
+      <span><i class="r"></i>Fluss</span>
+      <span><i class="v"></i>Dorf (beim Zoomen)</span>
+      <span><i class="b"></i>Grenze heute</span>
+    </div>
+"""
+    # Bedienteil und Panel aus der bisherigen Vorlage
+    h += CONTROLS_PANEL
+    oth = MAPINFO[other_c]
+    h += f"""
+  <section class="persons" aria-labelledby="weH">
+    <h3 id="weH">{'Der Feldzug 1870/71' if camp == '1866' else 'Der Feldzug 1866'}</h3>
+    <p class="more"><a href="{oth['file']}">{I['other'][1]}</a></p>
+  </section>
   <section class="persons" aria-labelledby="abH">
     <h3 id="abH">Tagebuch und Regimentsgeschichte</h3>
-    <p class="more">Alle geprüften Angaben in einer Übersicht, mit Fundstellen und Abweichungen: <a href="abgleich.html">Seite „Abgleich“ öffnen</a></p>
+    <p class="more">Alle geprüften Angaben in einer Übersicht, mit Fundstellen und Abweichungen: <a href="abgleich.html#{'f1866' if camp == '1866' else 'f1870'}">Seite „Abgleich“ öffnen</a></p>
+  </section>
+
+  <p class="sources">Datengrundlage: Luchmanns Tagebuch in der Abschrift von 1994 und die Regimentsgeschichte von Hugo von Mueller (1875), dazu Wikipedia für Schlachtdaten. Die Orte sind nach ihrer heutigen Lage eingetragen und auf etwa 1–2 km genau; Wege zwischen den Stationen sind gerade Linien und damit schematisch. {MAP_SOURCES}</p>
+"""
+    h += f'  <p class="qnav"><a class="qbtn" href="quellen-karte.html">Quellen</a></p>\n</div>\n<script src="karte-daten-{camp}.js"></script>\n<script src="karte.js"></script>\n<script src="site.js" defer></script>\n' + FOOT
+    Path(I["file"]).write_text(h)
+
+# ---------- Übersicht ----------
+OV_PLACES = [("sorau", 6, -6, "start"), ("berlin", 6, 4, "start"), ("prag", -6, 4, "end"), ("koeniggraetz", 6, 4, "start"), ("wien", -6, 4, "end"),
+  ("spichern", 6, 12, "start"), ("metz", -6, -4, "end"), ("paris", -6, 4, "end"), ("orleans", 6, 4, "start"), ("lemans", -6, 4, "end")]
+OV_NAMES = {"koeniggraetz": "Königgrätz"}
+
+def build_index():
+    g = json.load(open("werkzeuge/grund.json")); P = g["pts"]
+    desc = f"Feldwebel Wilhelm Luchmann im Deutschen Krieg 1866 und im Deutsch-Französischen Krieg 1870/71: Übersicht, zwei Karten mit {len(STEPS)} Stationen und der Abgleich mit der Regimentsgeschichte von 1875."
+    h = head("index.html", "Feldwebel Luchmann 1866 und 1870/71", desc, INDEXSTYLE + OVSTYLE, breit=True)
+    h += "  <header>\n" + brand() + nav("index.html") + "  </header>\n"
+    h += """
+  <section class="intro intro-ov" id="intro" aria-labelledby="woH">
+    <h2 id="woH">Worum geht es?</h2>
+    <p>Wilhelm Luchmann (1844–1907) aus Luckau diente von 1864 an in der 9. Kompanie des Grenadier-Regiments Prinz Carl von Preußen (2. Brandenburgisches) Nr. 12. Er zog 1866 gegen Österreich und 1870/71 gegen Frankreich. Später schrieb er seine Erlebnisse in einem Heft nieder: „Kriegs-Erlebnisse von 1866 und 1870/71“. Die Familie hat die Handschrift 1994 abgeschrieben und gebunden.</p>
+    <p>Für jeden Feldzug gibt es eine eigene Karte, die seinem Text Schritt für Schritt folgt und jede Angabe der Regimentsgeschichte von 1875 gegenüberstellt. Darin wird Luchmann mehrfach namentlich genannt: für Spichern mit dem Eisernen Kreuz II. Klasse, für Mars-la-Tour als Sergeant, der die 9. Kompanie führte und von französischen Reitern umgeritten wurde. Viele Daten und Zahlen im Tagebuch weichen aber ab. Mehr dazu auf den Seiten <a href="abgleich.html">Abgleich</a> und <a href="tagebuch.html">Tagebuch</a>.</p>
+  </section>
+
+  <section class="ov" aria-labelledby="ovH">
+    <h2 id="ovH" class="ov-h">Übersichtsplan</h2>
+    <div class="map ov-map">
+"""
+    s = f'      <svg viewBox="0 0 {g["W"]} {g["H"]}" role="img" aria-label="Übersichtskarte Mitteleuropas mit Luchmanns Wegen 1866 und 1870/71 und den Ausschnitten der beiden Karten">\n'
+    s += f'        <rect x="0" y="0" width="{g["W"]}" height="{g["H"]}" fill="var(--sea)"/>\n        <path class="grat" d="{g["grat"]}"/>\n'
+    for c in g["shapes"]: s += f'        <path class="country g-{c["g"]}" d="{c["d"]}"/>\n'
+    s += f'        <path class="borders" d="{g["borders"]}"/>\n        <path class="river-s" d="{g["riversSmall"]}"/>\n        <path class="river-l" d="{g["rivers"]}"/>\n'
+    for c in g["cl"]: s += f'        <text class="clabel ov-cl" x="{c["p"][0]}" y="{c["p"][1]}" text-anchor="middle">{E(c["n"])}</text>\n'
+    for camp in MAPINFO:
+        rt = [k for s_ in STEPS if s_["camp"] == camp for k in s_["moves"]]
+        s += f'        <path class="ov-route ov-{camp}" d="M' + "L".join(f'{P[k][0]},{P[k][1]}' for k in rt) + '"/>\n'
+    for camp, I in MAPINFO.items():
+        f = g["frames"][camp]
+        lx, ly = f["nw"]
+        s += f'        <a href="{I["file"]}" class="frame"><path d="{f["d"]}"/><text x="{lx + 8}" y="{ly + 22}">{E(I["label"])} ›</text></a>\n'
+    for k, dx, dy, anc in OV_PLACES:
+        x, y = P[k]
+        s += f'        <g class="ov-pl"><circle cx="{x}" cy="{y}" r="3"/><text x="{x + dx}" y="{y + dy}" text-anchor="{anc}">{E(OV_NAMES.get(k, NAMES[k]))}</text></g>\n'
+    s += "      </svg>\n"
+    h += s + "    </div>\n"
+    h += '    <p class="ov-note">Die roten Rahmen zeigen die Ausschnitte der beiden Karten; ein Klick öffnet sie. Wege als gerade Linien zwischen den Stationen, heutige Grenzen.</p>\n  </section>\n'
+    h += '  <section class="feldzuege" aria-label="Die beiden Feldzüge">\n'
+    for camp, I in MAPINFO.items():
+        st = [STEPS[i] for i in CAMP_STEPS[camp]]
+        nb = {k: sum(1 for x in st if x["bel"] == k) for k in BADGE}
+        key = "Gitschin, Königgrätz, Parade auf dem Marchfeld, Besatzung in Sachsen" if camp == "1866" else "Spichern, Mars-la-Tour, Gravelotte, Metz, Beaune-la-Rolande, Orléans, Le Mans"
+        h += f"""    <a class="fz" href="{I['file']}">
+      <span class="fz-k">{I['feldzug']}</span>
+      <span class="fz-t">{I['label']}</span>
+      <span class="fz-d">{I['jahre']} · {len(st)} Stationen · {nb['2'] + nb['1']} bestätigt, {nb['x']} abweichend</span>
+      <span class="fz-x">{E(I['lede'])}</span>
+      <span class="fz-s">Schwerpunkte: {key}</span>
+      <span class="fz-go">Karte öffnen ›</span>
+    </a>
+"""
+    h += "  </section>\n"
+    h += """
+  <section class="persons" aria-labelledby="abH">
+    <h3 id="abH">Tagebuch und Regimentsgeschichte</h3>
+    <p class="more">Alle geprüften Angaben beider Feldzüge, mit Fundstellen und Abweichungen: <a href="abgleich.html">Seite „Abgleich“ öffnen</a></p>
   </section>
   <section class="persons" aria-labelledby="peH">
     <h3 id="peH">Personen</h3>
@@ -238,11 +359,37 @@ def build_index():
     <h3 id="tbH">Das Tagebuch</h3>
     <p class="more">Handschrift, Abschrift von 1994, die Bilder der Familienchronik und wie zuverlässig der Text ist: <a href="tagebuch.html">Seite „Tagebuch“ öffnen</a></p>
   </section>
-
-  <p class="sources">Datengrundlage: Luchmanns Tagebuch in der Abschrift von 1994 und die Regimentsgeschichte von Hugo von Mueller (1875), dazu Wikipedia für Schlachtdaten. Die Orte sind nach ihrer heutigen Lage eingetragen und auf etwa 1–2 km genau; Wege zwischen den Stationen sind gerade Linien und damit schematisch. Grundkarte: Natural Earth (gemeinfrei), heutige Grenzen.</p>
 """
-    h += '  <p class="qnav"><a class="qbtn" href="quellen-karte.html">Quellen</a></p>\n</div>\n<script src="karte-daten.js"></script>\n<script src="karte.js"></script>\n<script src="site.js" defer></script>\n' + FOOT
+    n66 = len(CAMP_STEPS["1866"])
+    h += f'  <p class="qnav"><a class="qbtn" href="quellen-karte.html">Quellen</a></p>\n</div>\n<script>\n/* frühere Verweise auf index.html#sN führen auf die passende Karte */\n(function () {{ var m = /^#s(\\d+)$/.exec(location.hash); if (!m) return; var n = +m[1]; location.replace(n <= {n66} ? "karte-1866.html#s" + n : "karte-1870.html#s" + (n - {n66})); }})();\n</script>\n<script src="site.js" defer></script>\n' + FOOT
     Path("index.html").write_text(h)
+
+OVSTYLE = """
+.intro-ov { display: grid; gap: 8px }
+.intro-ov h2 { margin: 0; font: 700 22px/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .03em }
+.intro-ov p { margin: 0 }
+.ov { display: grid; gap: 8px }
+.ov-h { margin: 0; font: 700 22px/1.1 var(--f-display); text-transform: uppercase; letter-spacing: .03em }
+.ov-map svg { aspect-ratio: auto !important }
+.ov-route { fill: none; stroke: var(--red); stroke-width: 2.2; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round }
+.ov-1870 { stroke-dasharray: none }
+.ov-cl { font-size: 14px; opacity: .45 }
+.frame path { fill: var(--red-soft); fill-opacity: .25; stroke: var(--red); stroke-width: 2; vector-effect: non-scaling-stroke; transition: fill-opacity .2s }
+.frame:hover path, .frame:focus path { fill-opacity: .7 }
+.frame text { font: 700 18px var(--f-display); letter-spacing: .04em; text-transform: uppercase; fill: var(--red); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round }
+.ov-pl circle { fill: var(--ink); stroke: var(--paper); stroke-width: 1 }
+.ov-pl text { font: 600 13px var(--f-display); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round }
+.ov-note { margin: 0; font-size: 13.5px; color: var(--muted) }
+.feldzuege { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 14px }
+.fz { display: grid; gap: 6px; align-content: start; background: var(--panel); border: 1px solid var(--rule); border-top: 4px solid var(--red); border-radius: 3px; padding: 14px 16px; color: var(--ink); text-decoration: none; min-width: 0 }
+.fz:hover { border-color: var(--border); border-top-color: var(--red) }
+.fz-k { font: 600 12px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red) }
+.fz-t { font: 700 26px/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .02em }
+.fz-d { font: 500 13px/1.3 var(--f-mono); color: var(--muted) }
+.fz-x { font-size: 15.5px }
+.fz-s { font-size: 14px; color: var(--muted) }
+.fz-go { font: 600 14px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px }
+"""
 
 # ---------- Abgleich ----------
 def build_abgleich():
@@ -269,11 +416,17 @@ def build_abgleich():
       <div class="th"><h3>Was sich bestätigt</h3><dl><dd>Wege, Quartiere und Gefechte des Füsilier-Bataillons, die Namen der Offiziere (oft in eigener Schreibung) und Luchmanns eigene Rolle bei Spichern und Mars-la-Tour, die die Regimentsgeschichte namentlich nennt.</dd></dl></div>
     </div>
   </section>
-  <section class="sect" aria-labelledby="tlH">
-    <h2 id="tlH">Stationen</h2>
+"""
+    for camp, I in MAPINFO.items():
+      idx = CAMP_STEPS[camp]
+      nb = {k: sum(1 for i in idx if STEPS[i]["bel"] == k) for k in BADGE}
+      h += f"""  <section class="sect" aria-labelledby="f{camp}">
+    <h2 id="f{camp}">{I['feldzug']}</h2>
+    <p class="hint">{len(idx)} Stationen ({I['jahre']}): {nb['2'] + nb['1']} bestätigt, {nb['x']} abweichend, {nb['s']} nur im Tagebuch. <a href="{I['file']}">{I['label']} öffnen</a></p>
     <ol class="tl">
 """
-    for i, s in enumerate(STEPS):
+      for i in idx:
+        s = STEPS[i]
         cls, lab = BADGE[s["bel"]]
         h += f"""      <li{' class="key"' if s['bel'] == 'x' else ''}>
         <div class="t">{E(s['dl'])}</div><div class="rail"></div>
@@ -282,12 +435,12 @@ def build_abgleich():
           <p><b>Tagebuch:</b> {E(s['text'])}</p>
           <p class="zit">„{E(s['quote'][0].strip('„“'))}“ <span>({E(s['quote'][1])})</span></p>
           <p><b>Abgleich:</b> {E(s['check'])}</p>
-          <div class="meta"><span class="b {cls}">{lab}</span>{''.join(f'<a href="quellen-abgleich.html#q-{k}">{srcno(k)}</a>' for k in s['src'])}<a href="index.html#s{i + 1}">Karte</a></div>
+          <div class="meta"><span class="b {cls}">{lab}</span>{''.join(f'<a href="quellen-abgleich.html#q-{k}">{srcno(k)}</a>' for k in s['src'])}<a href="{step_link(i)}">Karte</a></div>
           <p class="why">{E(s.get('note', ''))}</p>
         </div>
       </li>
 """
-    h += "    </ol>\n  </section>\n"
+      h += "    </ol>\n  </section>\n"
     h += '  <p class="note">Die vollständige Belegmatrix mit Fundstellen liegt beim Herausgeber der Website. Wörtliche Zitate aus der Regimentsgeschichte sind in heutige Schreibung übertragen (ſ → s); die Schreibweise der Namen folgt dem Original.</p>\n'
     Path("abgleich.html").write_text(h + tail("quellen-abgleich.html"))
 
@@ -373,7 +526,7 @@ def build_tagebuch():
       <figure><img src="bilder/gemaelde-metz.jpg" width="825" height="1100" alt="Gemälde: brennendes Gebäude bei Nacht, davor Infanterie im Gefecht, Gefallene im Vordergrund" loading="lazy" decoding="async"><figcaption>Der „Belagerung von Metz“ zugeordnet. Maler nicht ermittelt. <a href="quellen-tagebuch.html#f5">F5</a></figcaption></figure>
       <figure><img src="bilder/gemaelde-orleans.jpg" width="1100" height="825" alt="Gemälde: preußische Infanterie mit Fahne stürmt an einem Waldrand vor, Verwundete am Boden" loading="lazy" decoding="async"><figcaption>Der „Schlacht von Orleans“ zugeordnet, doppelseitig. Maler nicht ermittelt. <a href="quellen-tagebuch.html#f6">F6</a></figcaption></figure>
     </div>
-    <p class="note">Nicht übernommen wurden die beiden Karten der Chronik, eine Schulatlas-Karte zu 1866 und eine Straßenkarte zu 1870/71: Sie stammen aus gedruckten Atlanten. Die Karte dieser Website ist neu gezeichnet.</p>
+    <p class="note">Nicht übernommen wurden die beiden Karten der Chronik, eine Schulatlas-Karte zu 1866 und eine Straßenkarte zu 1870/71: Sie stammen aus gedruckten Atlanten. Die Karten dieser Website sind neu gezeichnet.</p>
   </section>
   <section class="sect" aria-labelledby="zH">
     <h2 id="zH">Kostproben</h2>
@@ -427,7 +580,7 @@ def build_quellen(fn, page, title, keys, figs=()):
             h += f'      <li id="{fid}"><span class="id">{fid.upper()}</span><span>{E(t)}</span></li>\n'
         h += "    </ol>\n  </section>\n"
     if page == "index.html":
-        h += '  <section class="sect" aria-labelledby="kH">\n    <h2 id="kH">Grundkarte</h2>\n    <p class="hint">Grenzen und Küsten: Natural Earth, Admin 0 Countries 1:50 Mio., über das Paket world-atlas (gemeinfrei). Flüsse: Natural Earth, Rivers and Lake Centerlines und Rivers Europe 1:10 Mio. (gemeinfrei). Projektion: konforme Kegelprojektion nach Lambert. Es sind heutige Grenzen; die Landesnamen 1866/1870 sind schematisch gesetzt. Ortskoordinaten: heutige Lage der Orte, eigene Zuordnung.</p>\n  </section>\n'
+        h += '  <section class="sect" aria-labelledby="kH">\n    <h2 id="kH">Grundkarte</h2>\n    <p class="hint">Grenzen und Küsten: Natural Earth, Admin 0 Countries 1:50 Mio., über das Paket world-atlas (gemeinfrei). Flüsse: Natural Earth, Rivers and Lake Centerlines und Rivers Europe 1:10 Mio. (gemeinfrei). Projektion: konforme Kegelprojektion nach Lambert. Es sind heutige Grenzen; die Landesnamen 1866/1870 sind schematisch gesetzt. Ortskoordinaten: heutige Lage der Orte, eigene Zuordnung.</p>\n    <p class="hint">Detailkarten 1866 und 1870/71: Höhenlinien aus den Terrain Tiles von Mapzen auf AWS Open Data (Zoomstufe 8, Datengrundlage u. a. SRTM), geglättet, Abstand 100 bis 200 m. Dörfer: GeoNames (CC BY 4.0) über die Sammlung cities.json (lutangar/cities.json auf GitHub), automatisch ausgewählt nahe am Weg und in heutiger Schreibweise; erzeugt mit werkzeuge/detail.mjs.</p>\n  </section>\n'
     h += f'  <p class="qnav"><a class="qbtn" href="{page}">Zurück zu „{title}“</a></p>\n</div>\n<script src="site.js" defer></script>\n' + FOOT
     Path(fn).write_text(h)
 
@@ -444,8 +597,8 @@ def build_sitejs():
     Path("site.js").write_text(s)
 
 if __name__ == "__main__":
-    build_data(); build_index(); build_abgleich(); build_personen(); build_tagebuch(); build_glossar(); build_sitejs()
-    build_quellen("quellen-karte.html", "index.html", "Karte", ["tb", "rg", "gw", "wp-reg", "wp-gitschin", "wp-kg", "wp-dk", "wp-dfk", "wp-spichern", "wp-mlt", "wp-grav", "wp-metz", "wp-beaune", "wp-orleans", "wp-lemans"])
+    build_map("1866"); build_map("1870"); build_index(); build_abgleich(); build_personen(); build_tagebuch(); build_glossar(); build_sitejs()
+    build_quellen("quellen-karte.html", "index.html", "Übersicht und Karten", ["tb", "rg", "gw", "wp-reg", "wp-gitschin", "wp-kg", "wp-dk", "wp-dfk", "wp-spichern", "wp-mlt", "wp-grav", "wp-metz", "wp-beaune", "wp-orleans", "wp-lemans"])
     build_quellen("quellen-abgleich.html", "abgleich.html", "Abgleich", ["tb", "rg", "gw", "wp-reg", "wp-gitschin", "wp-kg", "wp-dk", "wp-dfk", "wp-spichern", "wp-mlt", "wp-grav", "wp-metz", "wp-beaune", "wp-orleans", "wp-lemans"])
     build_quellen("quellen-personen.html", "personen.html", "Personen", ["tb", "rg"], [FIG[1]])
     build_quellen("quellen-tagebuch.html", "tagebuch.html", "Tagebuch", ["tb", "rg"], FIG)
