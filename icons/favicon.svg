@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 80 80">
+  <circle r="38" fill="#FFFFFF" stroke="#23211C" stroke-width="3"/>
+  <circle r="32.5" fill="none" stroke="#23211C" stroke-width="1" opacity=".5"/>
+  <path fill="#ad281d" d="M-2.2,-27 L2.2,-27 L3.6,-17 L-3.6,-17 Z"/>
+  <path fill="#ad281d" d="M-6,-17 h12 v3 h-12 z"/>
+  <path fill="#ad281d" d="M-19,8 C-19,-6 -10,-14 0,-14 C10,-14 19,-6 19,8 Z"/>
+  <path fill="#ad281d" d="M-25,8 h50 l-4,4 h-42 z"/>
+  <text y="27" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="12" letter-spacing="1.2" fill="#23211C">1866·71</text>
+</svg>

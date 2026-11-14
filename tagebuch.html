@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="de" class="kk-b-gesch">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Die Handschrift „Kriegs-Erlebnisse von 1866 und 1870/71“ des Feldwebels Wilhelm Luchmann: Entstehung, Abschrift von 1994, Bilder der Familienchronik und Zuverlässigkeit.">
+<link rel="canonical" href="https://kaffeeundkommiss.github.io/luchmann187071/tagebuch.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Geschichte">
+<meta property="og:title" content="Das Tagebuch des Feldwebels Luchmann">
+<meta property="og:description" content="Die Handschrift „Kriegs-Erlebnisse von 1866 und 1870/71“ des Feldwebels Wilhelm Luchmann: Entstehung, Abschrift von 1994, Bilder der Familienchronik und Zuverlässigkeit.">
+<meta property="og:url" content="https://kaffeeundkommiss.github.io/luchmann187071/tagebuch.html">
+<meta name="theme-color" content="#23211C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12110E" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Luchmann 1866–71">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="site.css">
+<title>Das Tagebuch des Feldwebels Luchmann</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="basis.css">
+<style>
+/* Unterseiten (Vorlage: Stahlgewitter-Seiten), Zusätze für Bildergalerie und Zitate am Ende */
+:root {
+  --paper: #eceee8; --panel: #f6f7f3; --ink: #1d2420; --muted: #5d6861; --rule: #c3c9c1; --border: #6f7a72;
+  --j2: #6b6f6c; --j4: #2a5d91; --j6: #3f7a2e; --j10: #b07d0a; --j11: #7a3d8f; --ally: #4f6d7a; --red: #ad281d; --red-soft: rgba(173,40,29,.12);
+  --f-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121614; --panel: #181d1a; --ink: #e2e6e1; --muted: #98a39b; --rule: #313a35; --border: #7d8a82;
+  --j2: #a4aaa6; --j4: #6fa3e0; --j6: #7dbb5f; --j10: #e0b33c; --j11: #c08ad6; --ally: #8fb3c4; --red: #e4533f; --red-soft: rgba(228,83,63,.16);
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #121614; --panel: #181d1a; --ink: #e2e6e1; --muted: #98a39b; --rule: #313a35; --border: #7d8a82;
+  --j2: #a4aaa6; --j4: #6fa3e0; --j6: #7dbb5f; --j10: #e0b33c; --j11: #c08ad6; --ally: #8fb3c4; --red: #e4533f; --red-soft: rgba(228,83,63,.16);
+  color-scheme: dark }
+
+* { box-sizing: border-box }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--f-body) }
+[hidden] { display: none !important }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px }
+.wrap > * { min-width: 0 }
+header { display: grid; gap: 10px }
+.brand { display: flex; align-items: center; gap: 16px }
+.brand-text { display: grid; gap: 6px; min-width: 0 }
+.logo { width: 76px; height: 76px; flex: none }
+.logo-ring { fill: var(--panel); stroke: var(--ink); stroke-width: 3 }
+.logo-inner { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .5 }
+.logo-plane { fill: var(--red) }
+.logo-text { fill: var(--ink); font: 700 12.5px var(--f-display); letter-spacing: .16em }
+.eyebrow { font: 600 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red) }
+h1 { font: 700 clamp(28px, 5vw, 46px)/1 var(--f-display); margin: 0; text-transform: uppercase; text-wrap: balance }
+.lede { margin: 0; max-width: 68ch; color: var(--muted) }
+.evhead { display: grid; gap: 6px; margin-top: 8px }
+.evhead h2.evtitle { font: 700 clamp(26px, 4vw, 36px)/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .01em; margin: 0; text-wrap: balance }
+nav.pages { display: flex; gap: 8px; flex-wrap: wrap }
+nav.pages a { font: 600 14px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px 8px; background: var(--panel) }
+nav.pages a[aria-current="page"] { background: var(--ink); color: var(--paper); border-color: var(--ink) }
+nav.pages a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink) }
+nav.sub { display: flex; gap: 20px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; margin-top: -2px }
+nav.sub::-webkit-scrollbar { display: none }
+nav.sub a { font: 600 13px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none;
+  white-space: nowrap; padding: 8px 0 9px; border-bottom: 3px solid transparent; margin-bottom: -1px }
+nav.sub a:hover { color: var(--ink) }
+nav.sub a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--red) }
+nav.sub a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px }
+nav.pages a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px }
+@media (max-width: 560px) { .logo { width: 56px; height: 56px } .brand { gap: 12px } }
+
+h2 { font: 700 20px/1 var(--f-display); text-transform: uppercase; letter-spacing: .04em; margin: 0 }
+.sect { display: grid; gap: 12px }
+.hint { font-size: 14px; color: var(--muted); margin: 0 }
+
+
+/* Zeitleiste */
+.status { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; color: var(--muted); margin: 0; padding: 0; list-style: none }
+.status li { display: inline-flex; align-items: center; gap: 7px }
+.b { display: inline-block; font: 600 11.5px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px 3px; border-radius: 2px; border: 1px solid; white-space: nowrap }
+.b.ok { color: var(--j6); border-color: var(--j6) }
+.b.part { color: var(--j10); border-color: var(--j10) }
+.b.one { color: var(--muted); border-color: var(--border); border-style: dashed }
+.b.wid { color: var(--panel); background: var(--red); border-color: var(--red) }
+.day { margin: 6px 0 0; font: 600 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+ol.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 }
+ol.tl > li { display: grid; grid-template-columns: 92px 14px minmax(0, 1fr); gap: 0 12px }
+.t { font: 500 13px/1.3 var(--f-mono); color: var(--muted); padding-top: 14px; text-align: right }
+.rail { position: relative }
+.rail::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--rule) }
+.rail::after { content: ""; position: absolute; left: 1px; top: 17px; width: 12px; height: 12px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink) }
+ol.tl > li.key .rail::after { background: var(--red); border-color: var(--red) }
+.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 11px 14px 12px; margin: 6px 0; display: grid; gap: 6px }
+.card h3 { font: 600 18px/1.15 var(--f-display); margin: 0; letter-spacing: .02em }
+.card p { margin: 0 }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13.5px; color: var(--muted) }
+.meta a, .src a { color: var(--ink); font-family: var(--f-mono); font-size: 12.5px }
+.why { font-size: 14px; color: var(--muted); font-style: italic }
+@media (max-width: 560px) {
+  ol.tl > li { grid-template-columns: 14px minmax(0, 1fr); gap: 0 10px }
+  .t { grid-column: 2; text-align: left; padding-top: 10px }
+  .rail { grid-row: 1 / span 2; grid-column: 1 }
+  .card { grid-column: 2 }
+}
+
+/* Thesen */
+.theses { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px }
+.th { background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--border); border-radius: 3px; padding: 12px 14px; display: grid; gap: 8px; align-content: start }
+.th.lead { border-top-color: var(--red) }
+.th h3 { font: 600 18px/1.15 var(--f-display); margin: 0 }
+.th .who2 { font-size: 13.5px; color: var(--muted); margin: 0 }
+.th dl { margin: 0; display: grid; gap: 6px; font-size: 14.5px }
+.th dt { font: 600 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+.th dd { margin: 0 }
+
+/* Widersprüche, Quellen */
+.tbl { width: 100%; border-collapse: collapse; font-size: 14.5px }
+.tbl th, .tbl td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule) }
+.tbl th { font: 600 12.5px/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.tblwrap { overflow-x: auto; -webkit-overflow-scrolling: touch }
+ol.srcs { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14.5px }
+ol.srcs li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px }
+ol.srcs .id { font: 500 13px/1.5 var(--f-mono); color: var(--red) }
+ol.srcs .dep { color: var(--muted); font-size: 13.5px }
+ol.srcs a { color: var(--ink); overflow-wrap: anywhere }
+ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-soft) }
+.note { font-size: 13.5px; color: var(--muted); font-style: italic; margin: 0 }
+.hint a, .note a, .why a, .th dd a, .meta span a { color: var(--ink) }
+
+/* Zahlen */
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px }
+.stat { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--ally); border-radius: 3px; padding: 12px 14px; display: grid; gap: 6px; align-content: start }
+.stat.red { border-left-color: var(--red) }
+.stat .num { font: 700 40px/1 var(--f-display); letter-spacing: .01em }
+.stat .lbl { font-size: 14.5px; line-height: 1.35 }
+.stat .why { font-size: 13.5px }
+.b.self { color: var(--muted); border-color: var(--muted); background: var(--red-soft) }
+.tbl td.d { white-space: nowrap; font-family: var(--f-mono); font-size: 13px }
+
+/* Zusätze Luchmann */
+.b.self { color: var(--muted); border-color: var(--muted); background: var(--red-soft) }
+.zit { font-style: italic; color: var(--ink) } .zit span { font-style: normal; font: 500 12.5px var(--f-mono); color: var(--muted) }
+.card .zit { border-left: 3px solid var(--rule); padding-left: 10px }
+.th .zit { font-size: 17px; line-height: 1.45 }
+.gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px }
+.gal2 { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) }
+@media (max-width: 640px) { .gal2 { grid-template-columns: minmax(0, 1fr) } .gal { grid-template-columns: 1fr 1fr } }
+.gal figure { margin: 0; display: grid; gap: 6px; align-content: start }
+.gal img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 2px; background: var(--panel) }
+.gal figcaption { font-size: 13px; line-height: 1.4; color: var(--muted) } .gal figcaption a { color: var(--ink) }
+.th.card { margin: 0 }
+.th dd a { color: var(--ink) }
+.theses { grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)) } .th, .sect { min-width: 0 }
+.meta { min-width: 0 } details.belege > summary { flex-wrap: wrap }
+.sect { grid-template-columns: minmax(0, 1fr) }
+.theses > .card { grid-column: auto }
+</style>
+<link rel="stylesheet" href="bereich.css">
+</head>
+<body>
+<div class="kk-leiste"><div class="kk-in">
+  <a class="kk-haus" href="https://kaffeeundkommiss.github.io/"><img src="kk-tasse.svg" alt="" width="22" height="22"><span>Kaffee und Kommiss</span></a>
+  <nav class="kk-bereiche" aria-label="Bereiche"><a href="https://kaffeeundkommiss.github.io/geschichte/" aria-current="true">Geschichte</a><a href="https://kaffeeundkommiss.github.io/sicherheitspolitik/"><span class="kk-lang">Sicherheitspolitik</span><span class="kk-kurz">Sicherheit</span></a><a href="https://kaffeeundkommiss.github.io/politik/">Politik</a></nav>
+</div></div>
+<div class="kk-kopf"><div class="kk-in">
+  <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
+</div></div>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="brand-text">
+        <div class="eyebrow">Deutscher Krieg 1866 · Deutsch-Französischer Krieg 1870/71</div>
+        <h1>Die Kriegserlebnisse des Feldwebels Luchmann</h1>
+      </div>
+    </div>
+    <nav class="pages" aria-label="Seiten">
+      <a href="index.html">Karte</a>
+      <a href="abgleich.html">Abgleich</a>
+      <a href="personen.html">Personen</a>
+      <a href="tagebuch.html" aria-current="page">Tagebuch</a>
+    </nav>
+    <div class="evhead">
+      <div class="eyebrow">Quelle</div>
+      <h2 class="evtitle">Das Tagebuch und die Familienchronik</h2>
+    </div>
+    <p class="lede">Luchmanns Aufzeichnungen sind kein tägliches Kriegstagebuch, sondern eine spätere Erzählung in deutscher Schrift. Seine Familie hat sie 1994 in lateinische Schrift übertragen, mit Karten und Erläuterungen ergänzt und binden lassen.</p>
+  </header>
+  <section class="sect" aria-labelledby="hH">
+    <h2 id="hH">Handschrift und Abschrift</h2>
+    <div class="gal">
+      <figure><img src="bilder/umschlag.jpg" width="825" height="1100" alt="Roter Bucheinband mit goldener Frakturschrift: Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebels Wilhelm Luchmann" loading="lazy" decoding="async"><figcaption>Einband der Familienchronik, 1994. <a href="quellen-tagebuch.html#f1">F1</a></figcaption></figure>
+      <figure><img src="bilder/titelblatt.jpg" width="807" height="1100" alt="Vergilbtes handschriftliches Titelblatt in deutscher Schrift" loading="lazy" decoding="async"><figcaption>Titelblatt der Handschrift. <a href="quellen-tagebuch.html#f2">F2</a></figcaption></figure>
+      <figure><img src="bilder/handschrift-1866.jpg" width="808" height="1100" alt="Erste Textseite der Handschrift in deutscher Schrift" loading="lazy" decoding="async"><figcaption>Erste Seite: Geburt in Luckau, Eintritt 1864 in Schrimm. <a href="quellen-tagebuch.html#f3">F3</a></figcaption></figure>
+      <figure><img src="bilder/handschrift-1870.jpg" width="808" height="1100" alt="Handschriftseite mit der Überschrift Der Feldzug 1870/71" loading="lazy" decoding="async"><figcaption>Beginn des Teils „Der Feldzug 1870/71“. <a href="quellen-tagebuch.html#f4">F4</a></figcaption></figure>
+    </div>
+    <div class="theses">
+      <div class="th lead"><h3>Die Handschrift</h3><dl><dd>Ein Heft in deutscher Schreibschrift mit dem Titel „Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebel Wilhelm Luchmann“. Wann Luchmann es schrieb, ist unbekannt. Es muss nach 1871 entstanden sein: Er nennt Ereignisse „nach Rückkehr in die Garnison“ und spricht vom Kaiser. Das Original kam 1991 aus dem Nachlass eines Verwandten an den Herausgeber.</dd></dl></div>
+      <div class="th"><h3>Die Abschrift von 1994</h3><dl><dd>Gertrud Luchmann übertrug den Text im Sommer 1994 von Hand in lateinische Schrift, nach Angabe des Herausgebers ohne Korrekturen. Einzelne Namen und Wörter waren unleserlich oder verblasst. Gerd Luchmann gab die Abschrift im November 1994 in Trier als gebundene Familienchronik heraus, mit Marschrouten, zwei Karten aus Atlanten, zwei Gemälden und kurzen Texten aus Geschichtsbüchern.</dd></dl></div>
+      <div class="th"><h3>Was Luchmann erzählt</h3><dl><dd>Gefechte, Märsche und Quartiere, aber vor allem Episoden: Streiche, Wein, Kartenspiel, Mädchen, Hunger. Er schildert auch Gewalt gegen Zivilisten: angezündete Gehöfte, einen erschossenen Bauern, einen misshandelten Geistlichen, den Straßenkampf in Parigné. Diese Stellen gibt die Seite wieder, ohne sie zu übernehmen.</dd></dl></div>
+      <div class="th"><h3>Wie zuverlässig?</h3><dl><dd>Wege, Quartiere, Gefechte und Namen stimmen meist mit der Regimentsgeschichte überein, oft bis in Einzelheiten. Daten liegen häufig Tage oder Wochen daneben, Zahlen sind aufgerundet. Seine eigene Rolle bei Spichern und Mars-la-Tour bestätigt die Regimentsgeschichte namentlich. Viele Anekdoten lassen sich nicht prüfen. Siehe <a href="abgleich.html">Abgleich</a>.</dd></dl></div>
+    </div>
+  </section>
+  <section class="sect" aria-labelledby="bH">
+    <h2 id="bH">Bilder der Chronik</h2>
+    <p class="hint">Die Chronik ordnet zwei farbige Gemälde den Marschrouten zu: „Belagerung von Metz (siehe Bild)“ und „Schlacht von Orleans (siehe Bild)“. Maler, Titel und Herkunft der Bilder nennt sie nicht; sie konnten nicht ermittelt werden. Ob die Bilder diese Ereignisse zeigen, ist deshalb offen.</p>
+    <div class="gal gal2">
+      <figure><img src="bilder/gemaelde-metz.jpg" width="825" height="1100" alt="Gemälde: brennendes Gebäude bei Nacht, davor Infanterie im Gefecht, Gefallene im Vordergrund" loading="lazy" decoding="async"><figcaption>Der „Belagerung von Metz“ zugeordnet. Maler nicht ermittelt. <a href="quellen-tagebuch.html#f5">F5</a></figcaption></figure>
+      <figure><img src="bilder/gemaelde-orleans.jpg" width="1100" height="825" alt="Gemälde: preußische Infanterie mit Fahne stürmt an einem Waldrand vor, Verwundete am Boden" loading="lazy" decoding="async"><figcaption>Der „Schlacht von Orleans“ zugeordnet, doppelseitig. Maler nicht ermittelt. <a href="quellen-tagebuch.html#f6">F6</a></figcaption></figure>
+    </div>
+    <p class="note">Nicht übernommen wurden die beiden Karten der Chronik, eine Schulatlas-Karte zu 1866 und eine Straßenkarte zu 1870/71: Sie stammen aus gedruckten Atlanten. Die Karte dieser Website ist neu gezeichnet.</p>
+  </section>
+  <section class="sect" aria-labelledby="zH">
+    <h2 id="zH">Kostproben</h2>
+    <div class="theses">
+      <div class="th"><p class="zit">„… da tritt auch schon der König Wilhelm dicht neben mir und bleibt stehen, seine Suite hinter ihm.“</p><p class="who2">Brünn, 15. Juli 1866 (T S. 14)</p></div>
+      <div class="th"><p class="zit">„Da standen die Haare wie Besenreiser in die Höhe und das Testament war schon gemacht, doch Unkraut vergeht nicht.“</p><p class="who2">Reiterangriff bei Mars-la-Tour, 16. August 1870 (T S. 26)</p></div>
+      <div class="th"><p class="zit">„Kein Auge blieb trocken …“</p><p class="who2">Feldgottesdienst am Abend nach Mars-la-Tour (T S. 27)</p></div>
+      <div class="th"><p class="zit">„… welcher Contrast von vor 8 Tagen und heute, damals Braten, Kuchen, Wein die Hülle und Fülle und Sprungfederbett …“</p><p class="who2">Vendôme, 6. Januar 1871 (T S. 49)</p></div>
+    </div>
+    <p class="note">Zitate in der Schreibung der Abschrift von 1994. Die Texterkennung des eingescannten Buchs kann einzelne Zeichen verfälscht haben; die Zitate sind mit dem Bild der Seite verglichen.</p>
+  </section>
+  <p class="qnav"><a class="qbtn" href="quellen-tagebuch.html">Quellen</a></p>
+</div>
+<script src="site.js" defer></script>
+<footer class="kk-fuss"><div class="kk-in">
+  <p><a href="https://kaffeeundkommiss.github.io/">Kaffee und Kommiss</a>: Politik, Geschichte und Sicherheitspolitik mit Quellen. Private, nichtkommerzielle Zusammenstellung. Fehler gefunden? Bitte mit Quelle melden.</p>
+</div></footer>
+</body>
+</html>
