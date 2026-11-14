@@ -286,3 +286,9 @@ ol.srclist a { color: var(--ink) } ol.srclist li:target { background: var(--red-
 :root[data-theme="dark"] .bel-2 { border-color: #7dbb5f; color: #7dbb5f }
 .src .refs span { display: block }
 .ruler .month { font-size: 10.5px }
+/* Detailkarten je Feldzug */
+.cont-minor { stroke-opacity: .32 } .cont-major { stroke-opacity: .5 }
+.vil circle { fill: var(--muted); opacity: .8 }
+.vil text { font: 400 10.5px var(--f-body); fill: var(--muted); paint-order: stroke; stroke: var(--paper); stroke-width: 2.5px; stroke-linejoin: round; opacity: 1 }
+.legend i.v { width: 6px; height: 6px; border: 0; border-radius: 50%; background: var(--muted); margin: 0 12px 0 6px }
+.pl-rand text { font-style: italic }

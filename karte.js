@@ -1,4 +1,4 @@
-/* Karte: Wilhelm Luchmanns Weg 1864–1871. Daten in karte-daten.js (erzeugt mit werkzeuge/bau.py). */
+/* Karte: Wilhelm Luchmanns Weg, je Feldzug eine Karte. Daten in karte-daten-1866.js bzw. karte-daten-1870.js (erzeugt mit werkzeuge/bau.py). */
 (() => {
 "use strict";
 const D = window.KD, M = D.map, S = D.steps, N = S.length;
@@ -15,7 +15,8 @@ for (const s of M.shapes) el("path", { d: s.d, class: "country g-" + s.g }, $("c
 $("borders").setAttribute("d", M.borders);
 $("riverL").setAttribute("d", M.rivers);
 $("riverS").setAttribute("d", M.riversSmall);
-for (const r of M.rl) { const t = el("text", { class: "riv-lab", transform: `translate(${r.p[0]},${r.p[1]}) rotate(${r.a})` }, $("rivLabels")); t.textContent = r.n; }
+$("contMinor").setAttribute("d", M.contours.minor); $("contMajor").setAttribute("d", M.contours.major);
+for (const r of M.rivLabels) { const t = el("text", { class: "riv-lab", transform: `translate(${r.p[0]},${r.p[1]}) rotate(${r.a})` }, $("rivLabels")); t.textContent = r.n; }
 for (const c of M.cl) { const t = el("text", { class: "clabel", x: c.p[0], y: c.p[1], "text-anchor": "middle" }, $("clabels")); t.textContent = c.n; }
 
 // ---------- Weg aus den Schritten ----------
@@ -24,8 +25,9 @@ S.forEach((st, i) => st.moves.forEach(k => TP.push({ s: i, k, p: pt(k), dash: !!
 const T = S.map(st => Date.parse(st.date));
 $("routeAll").setAttribute("d", "M" + TP.map(q => q.p.join(",")).join("L"));
 
-// Orte: Punkt und Beschriftung; Großstädte immer sichtbar (blass)
-const PLACE = D.names, BIG = D.big;
+// Orte: Punkt und Beschriftung; Städte abseits des Wegs immer sichtbar (blass)
+const PLACE = Object.assign({}, D.names), BIG = [];
+for (const c of M.cities) { if (!(c.k in M.pts)) M.pts[c.k] = c.p; if (!(c.k in PLACE)) PLACE[c.k] = c.n; BIG.push(c.k); }
 const placeEls = {};
 const firstStep = {}; TP.forEach(q => { if (!(q.k in firstStep)) firstStep[q.k] = q.s; });
 for (const k of new Set([...BIG, ...TP.map(q => q.k), ...S.flatMap(st => st.lab || [])])) {
@@ -33,10 +35,21 @@ for (const k of new Set([...BIG, ...TP.map(q => q.k), ...S.flatMap(st => st.lab 
   const g = el("g", { class: "pl" + (k in firstStep ? " pl-route" : " pl-big"), transform: `translate(${p[0]},${p[1]})` }, $("places"));
   const sc = el("g", { class: "sc" }, g);
   el("circle", { r: k in firstStep ? 3.6 : 2.4 }, sc);
-  const t = el("text", { x: 6, y: 4 }, sc); t.textContent = PLACE[k] || k;
+  const t = el("text", k === "rand" ? { x: -6, y: 4, "text-anchor": "end" } : { x: 6, y: 4 }, sc); t.textContent = PLACE[k] || k;
+  if (k === "rand") g.classList.add("pl-rand");
   if (k in firstStep) { g.style.cursor = "pointer"; g.addEventListener("click", () => go(firstStep[k])); const tt = el("title", {}, g); tt.textContent = PLACE[k]; }
-  placeEls[k] = { g, t, p, w: (PLACE[k] || k).length * 6.4 + 8 };
+  placeEls[k] = { g, t, p, w: (PLACE[k] || k).length * 5.7 + 8 };
 }
+// Dörfer (nur bei starker Vergrößerung)
+const vilEls = M.villages.map(v => {
+  const g = el("g", { class: "vil", transform: `translate(${v.p[0]},${v.p[1]})` }, $("villages"));
+  const sc = el("g", { class: "sc" }, g);
+  el("circle", { r: 1.7 }, sc);
+  const t = el("text", { x: 4, y: 3.5 }, sc); t.textContent = v.n;
+  g.style.display = "none";
+  return { g, p: v.p, w: v.n.length * 5.6 + 6 };
+});
+const U = km => km * M.km100 / 100;  // Kilometer in Karteneinheiten
 
 // Ereignismarken
 const markEls = S.map((st, i) => {
@@ -70,7 +83,7 @@ function targetBox(i) {
   const own = TP.filter(q => q.s === i).map(q => q.p);
   const prev = TP.filter(q => q.s < i).slice(-1).map(q => q.p);
   const lab = (S[i].lab || []).map(pt);
-  return fit([...own, ...prev, ...lab], 150);
+  return fit([...own, ...prev, ...lab], U(D.minKm || 70));
 }
 let box = fullBox(), anim = null;
 function setBox(b) { box = b; svg.setAttribute("viewBox", b.map(v => v.toFixed(1)).join(" ")); }
@@ -121,11 +134,28 @@ function draw(v) {
   for (const k of prio) {
     if (seen.has(k) || !placeEls[k]) continue; seen.add(k);
     const e = placeEls[k]; if (!e.g.classList.contains("on")) continue;
-    const bx = [e.p[0] - 4 * s, e.p[1] - 9 * s, e.p[0] + e.w * s, e.p[1] + 6 * s];
-    if (boxes.some(b => bx[0] < b[2] && bx[2] > b[0] && bx[1] < b[3] && bx[3] > b[1])) continue;
+    // Beschriftung rechts, sonst links vom Punkt; der Randpunkt steht immer links
+    const hit = bx => boxes.some(b => bx[0] < b[2] && bx[2] > b[0] && bx[1] < b[3] && bx[3] > b[1]);
+    const R = [e.p[0] - 4 * s, e.p[1] - 9 * s, e.p[0] + e.w * s, e.p[1] + 6 * s];
+    const L = [e.p[0] - e.w * s, e.p[1] - 9 * s, e.p[0] + 4 * s, e.p[1] + 6 * s];
+    const left = k === "rand" || hit(R);
+    const bx = left ? L : R;
+    if (hit(bx)) continue;
+    e.t.setAttribute("x", left ? -6 : 6); e.t.setAttribute("text-anchor", left ? "end" : "start");
     boxes.push(bx); e.t.style.display = "";
   }
   markEls.forEach((m, j) => m && m.classList.toggle("on", j <= i));
+  // Dörfer: erst bei starker Vergrößerung, ohne Überdeckung mit Ortsnamen
+  const vilOn = box[2] < U(D.vilKm || 150);
+  let nV = 0;
+  for (const v of vilEls) {
+    let on = vilOn && nV < 60 && v.p[0] > box[0] && v.p[0] < box[0] + box[2] && v.p[1] > box[1] && v.p[1] < box[1] + box[3];
+    if (on) {
+      const bx = [v.p[0] - 3 * s, v.p[1] - 6 * s, v.p[0] + v.w * s, v.p[1] + 6 * s];
+      if (boxes.some(b => bx[0] < b[2] && bx[2] > b[0] && bx[1] < b[3] && bx[3] > b[1])) on = false; else { boxes.push(bx); nV++; }
+    }
+    v.g.style.display = on ? "" : "none";
+  }
   // Maßstab
   const pxPerUnit = svg.getBoundingClientRect().width / box[2];
   const kmPerPx = 100 / M.km100 / pxPerUnit;
@@ -150,7 +180,7 @@ function render(i) {
   $("pCheck").innerHTML = `<b>Abgleich:</b> ${esc(st.check)}`;
   $("pBelS").textContent = D.belShort[st.bel]; $("pBelS").className = "bel bel-" + st.bel;
   $("pNote").textContent = D.bel[st.bel] + ". " + (st.note || "");
-  $("pSrc").innerHTML = '<div class="refs">' + st.src.map(k => `<span><a href="quellen-karte.html#q-${k}">${esc(D.srcNo[k])}</a> ${esc(D.srcShort[k])}</span>`).join("") + "</div>";
+  $("pSrc").innerHTML = '<div class="refs">' + st.src.map(k => `<span><a href="${D.qpage}#q-${k}">${esc(D.srcNo[k])}</a> ${esc(D.srcShort[k])}</span>`).join("") + "</div>";
   $("nowDate").textContent = st.dl;
   document.querySelectorAll("#tbody tr").forEach((tr, j) => tr.classList.toggle("cur", j === i));
   ticks.forEach((t, j) => { t.classList.toggle("visited", j <= i); t.setAttribute("aria-current", j === i ? "step" : "false"); });
@@ -189,7 +219,6 @@ const ticks = S.map((st, i) => {
 const years = {}; S.forEach((st, i) => { const y = st.date.slice(0, 4); if (!(y in years)) years[y] = i; });
 let lastY = -1;
 for (const [y, i] of Object.entries(years)) { if (pos(i) - lastY < 0.07) continue; lastY = pos(i); const m = document.createElement("span"); m.className = "month y"; m.style.left = pos(i) * 100 + "%"; m.textContent = y; $("ruler").appendChild(m); }
-for (const c of ["1866", "1870"]) { const i = S.findIndex(st => st.camp === c); const m = document.createElement("span"); m.className = "month"; m.style.left = pos(i) * 100 + "%"; m.textContent = CAMP[c].replace("Feldzug ", "▸ "); $("ruler").appendChild(m); }
 
 // ---------- Chronologie ----------
 S.forEach((st, i) => {
