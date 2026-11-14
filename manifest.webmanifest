@@ -1,0 +1,16 @@
+{
+  "name": "Feldwebel Luchmann 1866 und 1870/71",
+  "short_name": "Luchmann 1866–71",
+  "description": "Karte zu den Kriegserlebnissen des Feldwebels Wilhelm Luchmann 1866 und 1870/71",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F0F0EE",
+  "theme_color": "#F0F0EE",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

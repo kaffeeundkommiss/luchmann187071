@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="de" class="kk-b-gesch">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Luchmanns Tagebuch Schritt für Schritt mit der Regimentsgeschichte von 1875 abgeglichen: bestätigte Angaben, Abweichungen bei Daten und Zahlen, Stellen ohne Beleg.">
+<link rel="canonical" href="https://kaffeeundkommiss.github.io/luchmann187071/abgleich.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Geschichte">
+<meta property="og:title" content="Abgleich: Tagebuch und Regimentsgeschichte">
+<meta property="og:description" content="Luchmanns Tagebuch Schritt für Schritt mit der Regimentsgeschichte von 1875 abgeglichen: bestätigte Angaben, Abweichungen bei Daten und Zahlen, Stellen ohne Beleg.">
+<meta property="og:url" content="https://kaffeeundkommiss.github.io/luchmann187071/abgleich.html">
+<meta name="theme-color" content="#23211C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12110E" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Luchmann 1866–71">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="site.css">
+<title>Abgleich: Tagebuch und Regimentsgeschichte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="basis.css">
+<style>
+/* Unterseiten (Vorlage: Stahlgewitter-Seiten), Zusätze für Bildergalerie und Zitate am Ende */
+:root {
+  --paper: #eceee8; --panel: #f6f7f3; --ink: #1d2420; --muted: #5d6861; --rule: #c3c9c1; --border: #6f7a72;
+  --j2: #6b6f6c; --j4: #2a5d91; --j6: #3f7a2e; --j10: #b07d0a; --j11: #7a3d8f; --ally: #4f6d7a; --red: #ad281d; --red-soft: rgba(173,40,29,.12);
+  --f-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #121614; --panel: #181d1a; --ink: #e2e6e1; --muted: #98a39b; --rule: #313a35; --border: #7d8a82;
+  --j2: #a4aaa6; --j4: #6fa3e0; --j6: #7dbb5f; --j10: #e0b33c; --j11: #c08ad6; --ally: #8fb3c4; --red: #e4533f; --red-soft: rgba(228,83,63,.16);
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #121614; --panel: #181d1a; --ink: #e2e6e1; --muted: #98a39b; --rule: #313a35; --border: #7d8a82;
+  --j2: #a4aaa6; --j4: #6fa3e0; --j6: #7dbb5f; --j10: #e0b33c; --j11: #c08ad6; --ally: #8fb3c4; --red: #e4533f; --red-soft: rgba(228,83,63,.16);
+  color-scheme: dark }
+
+* { box-sizing: border-box }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--f-body) }
+[hidden] { display: none !important }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px }
+.wrap > * { min-width: 0 }
+header { display: grid; gap: 10px }
+.brand { display: flex; align-items: center; gap: 16px }
+.brand-text { display: grid; gap: 6px; min-width: 0 }
+.logo { width: 76px; height: 76px; flex: none }
+.logo-ring { fill: var(--panel); stroke: var(--ink); stroke-width: 3 }
+.logo-inner { fill: none; stroke: var(--ink); stroke-width: 1; opacity: .5 }
+.logo-plane { fill: var(--red) }
+.logo-text { fill: var(--ink); font: 700 12.5px var(--f-display); letter-spacing: .16em }
+.eyebrow { font: 600 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red) }
+h1 { font: 700 clamp(28px, 5vw, 46px)/1 var(--f-display); margin: 0; text-transform: uppercase; text-wrap: balance }
+.lede { margin: 0; max-width: 68ch; color: var(--muted) }
+.evhead { display: grid; gap: 6px; margin-top: 8px }
+.evhead h2.evtitle { font: 700 clamp(26px, 4vw, 36px)/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .01em; margin: 0; text-wrap: balance }
+nav.pages { display: flex; gap: 8px; flex-wrap: wrap }
+nav.pages a { font: 600 14px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px 8px; background: var(--panel) }
+nav.pages a[aria-current="page"] { background: var(--ink); color: var(--paper); border-color: var(--ink) }
+nav.pages a[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink) }
+nav.sub { display: flex; gap: 20px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; margin-top: -2px }
+nav.sub::-webkit-scrollbar { display: none }
+nav.sub a { font: 600 13px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-decoration: none;
+  white-space: nowrap; padding: 8px 0 9px; border-bottom: 3px solid transparent; margin-bottom: -1px }
+nav.sub a:hover { color: var(--ink) }
+nav.sub a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--red) }
+nav.sub a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px }
+nav.pages a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px }
+@media (max-width: 560px) { .logo { width: 56px; height: 56px } .brand { gap: 12px } }
+
+h2 { font: 700 20px/1 var(--f-display); text-transform: uppercase; letter-spacing: .04em; margin: 0 }
+.sect { display: grid; gap: 12px }
+.hint { font-size: 14px; color: var(--muted); margin: 0 }
+
+
+/* Zeitleiste */
+.status { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; color: var(--muted); margin: 0; padding: 0; list-style: none }
+.status li { display: inline-flex; align-items: center; gap: 7px }
+.b { display: inline-block; font: 600 11.5px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px 3px; border-radius: 2px; border: 1px solid; white-space: nowrap }
+.b.ok { color: var(--j6); border-color: var(--j6) }
+.b.part { color: var(--j10); border-color: var(--j10) }
+.b.one { color: var(--muted); border-color: var(--border); border-style: dashed }
+.b.wid { color: var(--panel); background: var(--red); border-color: var(--red) }
+.day { margin: 6px 0 0; font: 600 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+ol.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 }
+ol.tl > li { display: grid; grid-template-columns: 92px 14px minmax(0, 1fr); gap: 0 12px }
+.t { font: 500 13px/1.3 var(--f-mono); color: var(--muted); padding-top: 14px; text-align: right }
+.rail { position: relative }
+.rail::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--rule) }
+.rail::after { content: ""; position: absolute; left: 1px; top: 17px; width: 12px; height: 12px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink) }
+ol.tl > li.key .rail::after { background: var(--red); border-color: var(--red) }
+.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 11px 14px 12px; margin: 6px 0; display: grid; gap: 6px }
+.card h3 { font: 600 18px/1.15 var(--f-display); margin: 0; letter-spacing: .02em }
+.card p { margin: 0 }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13.5px; color: var(--muted) }
+.meta a, .src a { color: var(--ink); font-family: var(--f-mono); font-size: 12.5px }
+.why { font-size: 14px; color: var(--muted); font-style: italic }
+@media (max-width: 560px) {
+  ol.tl > li { grid-template-columns: 14px minmax(0, 1fr); gap: 0 10px }
+  .t { grid-column: 2; text-align: left; padding-top: 10px }
+  .rail { grid-row: 1 / span 2; grid-column: 1 }
+  .card { grid-column: 2 }
+}
+
+/* Thesen */
+.theses { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px }
+.th { background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--border); border-radius: 3px; padding: 12px 14px; display: grid; gap: 8px; align-content: start }
+.th.lead { border-top-color: var(--red) }
+.th h3 { font: 600 18px/1.15 var(--f-display); margin: 0 }
+.th .who2 { font-size: 13.5px; color: var(--muted); margin: 0 }
+.th dl { margin: 0; display: grid; gap: 6px; font-size: 14.5px }
+.th dt { font: 600 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+.th dd { margin: 0 }
+
+/* Widersprüche, Quellen */
+.tbl { width: 100%; border-collapse: collapse; font-size: 14.5px }
+.tbl th, .tbl td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule) }
+.tbl th { font: 600 12.5px/1.2 var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.tblwrap { overflow-x: auto; -webkit-overflow-scrolling: touch }
+ol.srcs { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14.5px }
+ol.srcs li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px }
+ol.srcs .id { font: 500 13px/1.5 var(--f-mono); color: var(--red) }
+ol.srcs .dep { color: var(--muted); font-size: 13.5px }
+ol.srcs a { color: var(--ink); overflow-wrap: anywhere }
+ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-soft) }
+.note { font-size: 13.5px; color: var(--muted); font-style: italic; margin: 0 }
+.hint a, .note a, .why a, .th dd a, .meta span a { color: var(--ink) }
+
+/* Zahlen */
+.stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px }
+.stat { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--ally); border-radius: 3px; padding: 12px 14px; display: grid; gap: 6px; align-content: start }
+.stat.red { border-left-color: var(--red) }
+.stat .num { font: 700 40px/1 var(--f-display); letter-spacing: .01em }
+.stat .lbl { font-size: 14.5px; line-height: 1.35 }
+.stat .why { font-size: 13.5px }
+.b.self { color: var(--muted); border-color: var(--muted); background: var(--red-soft) }
+.tbl td.d { white-space: nowrap; font-family: var(--f-mono); font-size: 13px }
+
+/* Zusätze Luchmann */
+.b.self { color: var(--muted); border-color: var(--muted); background: var(--red-soft) }
+.zit { font-style: italic; color: var(--ink) } .zit span { font-style: normal; font: 500 12.5px var(--f-mono); color: var(--muted) }
+.card .zit { border-left: 3px solid var(--rule); padding-left: 10px }
+.th .zit { font-size: 17px; line-height: 1.45 }
+.gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px }
+.gal2 { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) }
+@media (max-width: 640px) { .gal2 { grid-template-columns: minmax(0, 1fr) } .gal { grid-template-columns: 1fr 1fr } }
+.gal figure { margin: 0; display: grid; gap: 6px; align-content: start }
+.gal img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 2px; background: var(--panel) }
+.gal figcaption { font-size: 13px; line-height: 1.4; color: var(--muted) } .gal figcaption a { color: var(--ink) }
+.th.card { margin: 0 }
+.th dd a { color: var(--ink) }
+.theses { grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)) } .th, .sect { min-width: 0 }
+.meta { min-width: 0 } details.belege > summary { flex-wrap: wrap }
+.sect { grid-template-columns: minmax(0, 1fr) }
+.theses > .card { grid-column: auto }
+</style>
+<link rel="stylesheet" href="bereich.css">
+</head>
+<body>
+<div class="kk-leiste"><div class="kk-in">
+  <a class="kk-haus" href="https://kaffeeundkommiss.github.io/"><img src="kk-tasse.svg" alt="" width="22" height="22"><span>Kaffee und Kommiss</span></a>
+  <nav class="kk-bereiche" aria-label="Bereiche"><a href="https://kaffeeundkommiss.github.io/geschichte/" aria-current="true">Geschichte</a><a href="https://kaffeeundkommiss.github.io/sicherheitspolitik/"><span class="kk-lang">Sicherheitspolitik</span><span class="kk-kurz">Sicherheit</span></a><a href="https://kaffeeundkommiss.github.io/politik/">Politik</a></nav>
+</div></div>
+<div class="kk-kopf"><div class="kk-in">
+  <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
+</div></div>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="brand-text">
+        <div class="eyebrow">Deutscher Krieg 1866 · Deutsch-Französischer Krieg 1870/71</div>
+        <h1>Die Kriegserlebnisse des Feldwebels Luchmann</h1>
+      </div>
+    </div>
+    <nav class="pages" aria-label="Seiten">
+      <a href="index.html">Karte</a>
+      <a href="abgleich.html" aria-current="page">Abgleich</a>
+      <a href="personen.html">Personen</a>
+      <a href="tagebuch.html">Tagebuch</a>
+    </nav>
+    <div class="evhead">
+      <div class="eyebrow">Quellenkritik</div>
+      <h2 class="evtitle">Tagebuch und Regimentsgeschichte</h2>
+    </div>
+    <p class="lede">Für jede Station der Karte ist geprüft, ob die Regimentsgeschichte von 1875 und, bei Schlachtdaten, Wikipedia das Tagebuch bestätigen. Luchmanns Erinnerung ist bei Orten und Abläufen meist genau, bei Daten und Zahlen oft nicht.</p>
+  </header>
+  <section class="sect" aria-label="Zahlen">
+    <div class="stats">
+      <div class="stat"><div class="num">31</div><div class="lbl">Stationen geprüft</div></div>
+      <div class="stat"><div class="num">21</div><div class="lbl">bestätigt, davon 9 mit zweiter Quelle</div></div>
+      <div class="stat red"><div class="num">8</div><div class="lbl">mit Abweichungen bei Datum, Ort oder Zahl</div></div>
+      <div class="stat"><div class="num">2</div><div class="lbl">nur im Tagebuch</div></div>
+    </div>
+  </section>
+  <section class="sect" aria-labelledby="stH">
+    <h2 id="stH">Abgleich</h2>
+    <ul class="status">
+      <li><span class="b ok">bestätigt</span>Regimentsgeschichte und eine zweite Quelle stimmen mit dem Tagebuch überein</li>
+      <li><span class="b part">Regimentsgeschichte</span>nur die Regimentsgeschichte von 1875 bestätigt, nicht ausreichend belegt</li>
+      <li><span class="b wid">abweichend</span>Datum, Ort oder Zahl weichen ab</li>
+      <li><span class="b self">nur Tagebuch</span>nicht geprüft oder in keiner Quelle gefunden</li>
+    </ul>
+    <p class="note">Das Tagebuch ist ein Selbstzeugnis, Jahre nach den Ereignissen niedergeschrieben. Die Regimentsgeschichte von 1875 ist unabhängig davon entstanden, stützt sich aber auf Meldungen aus dem Regiment, zu denen auch Luchmanns gehört haben können. Schlachtdaten sind zusätzlich mit Wikipedia abgeglichen.</p>
+  </section>
+  <section class="sect" aria-labelledby="muH">
+    <h2 id="muH">Muster der Abweichungen</h2>
+    <div class="theses">
+      <div class="th lead"><h3>Daten um Tage oder Wochen verschoben</h3><dl><dd>Ausmarsch „16. Juni“ statt 16. Mai 1866, Königgrätz „2. Juli“ statt 3. Juli, Beaune-la-Rolande „29.“ statt 28. November, Bellegarde „30. November“ statt 2. Dezember, Rückkehr „Juli“ statt Juni 1867.</dd></dl></div>
+      <div class="th"><h3>Zahlen aufgerundet</h3><dl><dd>Bei Spichern 300 statt 207 Mann Verlust des Bataillons, in Beaune-la-Rolande 600 statt etwa 400 Gefangene, in Göding 400 bis 500 statt 100 Zigarren je Mann.</dd></dl></div>
+      <div class="th"><h3>Orte verwechselt oder zusammengezogen</h3><dl><dd>Parade bei „Nikolsburg“ statt auf dem Marchfeld, der Elbübergang vor statt nach Königgrätz, Mobilmachung und Kriegserklärung am selben Tag.</dd></dl></div>
+      <div class="th"><h3>Was sich bestätigt</h3><dl><dd>Wege, Quartiere und Gefechte des Füsilier-Bataillons, die Namen der Offiziere (oft in eigener Schreibung) und Luchmanns eigene Rolle bei Spichern und Mars-la-Tour, die die Regimentsgeschichte namentlich nennt.</dd></dl></div>
+    </div>
+  </section>
+  <section class="sect" aria-labelledby="tlH">
+    <h2 id="tlH">Stationen</h2>
+    <ol class="tl">
+      <li>
+        <div class="t">1864</div><div class="rail"></div>
+        <div class="card" id="s1">
+          <h3>Eintritt in Schrimm</h3>
+          <p><b>Tagebuch:</b> Friedrich Wilhelm Luchmann, geboren am 28. Dezember 1844 in Luckau (Niederlausitz), wird 1864 in die 9. Kompanie des Grenadier-Regiments Prinz Carl von Preußen (2. Brandenburgisches) Nr. 12 eingestellt. Sein Füsilier-Bataillon liegt in Schrimm, nahe der Grenze zu Russisch-Polen. Er war nach eigener Angabe zuvor in Russland gewesen.</p>
+          <p class="zit">„… daß es ein so strenger Winter war, daß uns die Gewehre an den Händen anfroren.“ <span>(T S. 7)</span></p>
+          <p><b>Abgleich:</b> Garnison Schrimm bis Anfang 1865 bestätigt. Eintrittsjahr und Herkunftsangaben stehen nur im Tagebuch.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-gw">Q3</a><a href="index.html#s1">Karte</a></div>
+          <p class="why">RG S. 294 (Abmarsch aus Schrimm am 5.1.1865); GenWiki, Standorte des Regiments.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">13.01.1865</div><div class="rail"></div>
+        <div class="card" id="s2">
+          <h3>Neue Garnison Sorau</h3>
+          <p><b>Tagebuch:</b> Das Regiment wird nach Brandenburg verlegt, das Füsilier-Bataillon kommt nach Sorau. Luchmann wird im Herbst 1865 Exerzier-Gefreiter und verdient beim Bau eines Gasometers in Sorau dazu.</p>
+          <p class="zit">„Der Marsch von Schrimm nach Sorau war wenig interessant …“ <span>(T S. 7)</span></p>
+          <p><b>Abgleich:</b> Verlegung bestätigt: Abmarsch aus Schrimm am 5. Januar, Ankunft in Sorau am 13. Januar 1865.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-gw">Q3</a><a href="index.html#s2">Karte</a></div>
+          <p class="why">RG S. 294; GenWiki, Standorte (Füsilier-Bataillon ab 1865 in Sorau).</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">16.05.1866</div><div class="rail"></div>
+        <div class="card" id="s3">
+          <h3>Ausmarsch an die sächsische Grenze</h3>
+          <p><b>Tagebuch:</b> Das Bataillon rückt aus Sorau aus und wird in Dörfern an der sächsischen Grenze einquartiert. Luchmann erzählt, wie er mit seinem Freund Knoll, einem Berliner Droschkenkutscher, zur Strafe auf Nachtpatrouille geschickt wird, im Wald den Nachtigallen zuhört und einschläft.</p>
+          <p class="zit">„Am 16. Juni rückten wir aus unserer alten Garnison aus, um zunächst nach der sächsischen Grenze zu marschieren.“ <span>(T S. 7)</span></p>
+          <p><b>Abgleich:</b> Der Monat weicht ab: Nach Regimentsgeschichte und Wikipedia rückte das Regiment am 16. Mai aus. Das Füsilier-Bataillon lag um Ruhland, etwa eine halbe Meile von der sächsischen Grenze.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-reg">Q4</a><a href="index.html#s3">Karte</a></div>
+          <p class="why">RG S. 297–298. Die Patrouillen-Geschichte steht nur im Tagebuch. Ort des Quartiers im Tagebuch nicht genannt; Ruhland nach RG.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">22.–24.06.1866</div><div class="rail"></div>
+        <div class="card" id="s4">
+          <h3>Einmarsch in Böhmen</h3>
+          <p><b>Tagebuch:</b> Einen Tag nach der Kriegserklärung überschreitet das Bataillon als Vorhut bei Seidenberg die Grenze. In Friedland müssen die Bürger Essen auf den Markt bringen, in Reichenberg hat die Truppe Ruhetag. Luchmann probiert dort heimlich die Uniform seines Hauptmanns an, als Alarm geschlagen wird.</p>
+          <p class="zit">„Vorwärts Kammeraden auf die Grenze zu“ <span>(T S. 9, Ruf des Divisionskommandeurs v. Tümpling)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: am 22. Juni Quartier in Alt-Seidenberg als Vorhut der 5. Division, am 23. Juni Einmarsch über Friedland in Richtung Reichenberg.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s4">Karte</a></div>
+          <p class="why">RG S. 305–307. Die Uniform-Anekdote steht nur im Tagebuch.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">29./30.06.1866</div><div class="rail"></div>
+        <div class="card" id="s5">
+          <h3>Gefecht bei Gitschin</h3>
+          <p><b>Tagebuch:</b> Nach einem Umweg durch das Gebirge gerät das Bataillon bei Gitschin ins Gefecht. Luchmann wird von Premier-Leutnant v. Müller für das Militär-Ehrenzeichen notiert. In der Nacht nimmt das Füsilier-Bataillon die Stadt.</p>
+          <p class="zit">„… und war es ein verdammtes Stück Arbeit über die Brücke und das Thor zu nehmen …“ <span>(T S. 12)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Das Füsilier-Bataillon nahm Gitschin in der Nacht vom 29. auf den 30. Juni, mit einer halben 9. Kompanie. Abweichend: Die Regimentsgeschichte nennt Widerstand erst am Markt, nicht an Brücke und Tor.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-gitschin">Q5</a><a href="index.html#s5">Karte</a></div>
+          <p class="why">RG S. 344–348; Wikipedia: Gefecht am 29.06.1866. Die Notierung für das Ehrenzeichen ist nur im Tagebuch belegt.</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">03.07.1866</div><div class="rail"></div>
+        <div class="card" id="s6">
+          <h3>Schlacht bei Königgrätz</h3>
+          <p><b>Tagebuch:</b> Luchmann beschreibt die Schlacht und die Nacht auf dem Schlachtfeld bei Sadowa. Am Morgen versorgt er Verwundete mit Wasser und Zucker. Das Tagebuch setzt die Schlacht auf den 2. Juli und den Elbübergang auf einer Schiffbrücke davor.</p>
+          <p class="zit">„Die Schlacht bei Königsgrätz dauerte bis zum Dunkelwerden und biwaquierten wir auf dem Schlachtfelde.“ <span>(T S. 12)</span></p>
+          <p><b>Abgleich:</b> Abweichend: Die Schlacht war am 3. Juli. Die Elbe überschritt das Regiment erst am 5. Juli auf einer Pontonbrücke bei Mnelitz, also nach der Schlacht.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-kg">Q6</a><a href="index.html#s6">Karte</a></div>
+          <p class="why">RG S. 353–366; Wikipedia: Schlacht am 03.07.1866. Die Reihenfolge im Tagebuch ist vertauscht.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">15.07.1866</div><div class="rail"></div>
+        <div class="card" id="s7">
+          <h3>Feldgottesdienst in Brünn</h3>
+          <p><b>Tagebuch:</b> Die 5. Division hält am Sonntag einen Feldgottesdienst. Luchmann singt als zweiter Bass im Divisionschor, als König Wilhelm I. direkt neben ihn tritt. Am Nachmittag besichtigt er die Festung auf dem Spielberg.</p>
+          <p class="zit">„… und da tritt auch schon der König Wilhelm dicht neben mir und bleibt stehen …“ <span>(T S. 14)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Sonntag, 15. Juli 1866, Feldgottesdienst auf der Esplanade in Brünn, Divisionsprediger Aebert, der König anwesend.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s7">Karte</a></div>
+          <p class="why">RG S. 369–370. Dass der König neben Luchmann stand, steht nur im Tagebuch.</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">18.07.1866</div><div class="rail"></div>
+        <div class="card" id="s8">
+          <h3>Beute in Göding</h3>
+          <p><b>Tagebuch:</b> In Göding fällt der Truppe ein österreichisches Magazin in die Hände. Luchmann spricht von 200 ungarischen Ochsen, Millionen Zigarren und 400 bis 500 Zigarren je Mann.</p>
+          <p class="zit">„Es war dies ein Heiden Jubel.“ <span>(T S. 14)</span></p>
+          <p><b>Abgleich:</b> Die Beute ist bestätigt, die Mengen nicht: Das Füsilier-Bataillon übernahm am 18. Juli Magazin, Bierlager und k. k. Tabakfabrik; jeder Mann erhielt 1 Pfund Tabak und 100 Zigarren.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s8">Karte</a></div>
+          <p class="why">RG S. 370–371. Göding liegt in Mähren an der Grenze zu Ungarn; das Tagebuch verlegt es nach Ungarn.</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">31.07.1866</div><div class="rail"></div>
+        <div class="card" id="s9">
+          <h3>Königsparade auf dem Marchfeld</h3>
+          <p><b>Tagebuch:</b> Nach dem Waffenstillstand liegen die Truppen in Quartieren vor Wien. Bei großer Hitze steht die Truppe von 3 Uhr morgens an zur Parade vor König Wilhelm; Prinz Carl, Chef des Regiments, reitet neben ihm.</p>
+          <p class="zit">„… hatten wir vor seiner Majestaet dem König Wilhelm auf dem Marsfelde bei Nicolsburg grosse Parade …“ <span>(T S. 15)</span></p>
+          <p><b>Abgleich:</b> Ort verwechselt: Die Parade fand am 31. Juli auf dem Marchfeld bei Schönkirchen statt, nicht bei Nikolsburg. In Nikolsburg wurde am 26. Juli der Vorfrieden geschlossen.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-dk">Q7</a><a href="index.html#s9">Karte</a></div>
+          <p class="why">RG S. 355 (im Scan doppelt gezählte Seite); Wikipedia: Vorfrieden von Nikolsburg 26.07.1866, Prager Frieden 23.08.1866.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">07.09.1866</div><div class="rail"></div>
+        <div class="card" id="s10">
+          <h3>Rückmarsch über Prag</h3>
+          <p><b>Tagebuch:</b> Über Iglau geht es nach Prag. Das Bataillon besucht das Denkmal für Feldmarschall Schwerin, der dort 1757 gefallen war. Danach Standquartiere in Dörfern; Luchmann ist Vizekommandant eines Dorfes unter Unteroffizier Krocke.</p>
+          <p class="zit">„Bei Prag besuchten wir die Stelle, wo der alte Held General von Schwerin gefallen ist …“ <span>(T S. 15)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Das Füsilier-Bataillon marschierte am Schwerin-Denkmal vorbei.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s10">Karte</a></div>
+          <p class="why">RG S. 379. Die Dorfgeschichten (Geburtstagsständchen, Streit mit einem Bauern) stehen nur im Tagebuch.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">23.09.1866</div><div class="rail"></div>
+        <div class="card" id="s11">
+          <h3>Besatzung in Sachsen</h3>
+          <p><b>Tagebuch:</b> Über Teplitz und Freiberg, wo Luchmann ein Zinnbergwerk besichtigt, kommt das Bataillon als Besatzung nach Sachsen. Die Quartiergeber müssen täglich Essen, Fleisch, Bier und Zigarren stellen.</p>
+          <p class="zit">„o herrliche Zeit kehrst nie zurück!“ <span>(T S. 17)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Ankunft in Glauchau am 23. September 1866. „Glaudran“ in der Abschrift ist Glauchau.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s11">Karte</a></div>
+          <p class="why">RG S. 380–382.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">22.01.1867</div><div class="rail"></div>
+        <div class="card" id="s12">
+          <h3>Standquartier Wurzen</h3>
+          <p><b>Tagebuch:</b> Im Januar 1867 muss das Bataillon Glauchau räumen und kommt nach Wurzen. Die kostenlose Verpflegung endet.</p>
+          <p class="zit">„Im Januar 1867 mußten wir Glaudran räumen und bekamen Wurzen als Standquartier …“ <span>(T S. 17)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Einzug in Wurzen am 22. Januar 1867.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s12">Karte</a></div>
+          <p class="why">RG S. 385.</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">02.06.1867</div><div class="rail"></div>
+        <div class="card" id="s13">
+          <h3>Rückkehr nach Sorau</h3>
+          <p><b>Tagebuch:</b> Das Bataillon kehrt in die Garnison zurück, die Stadt ist geschmückt und abends beleuchtet. Luchmann ist in Sachsen Unteroffizier geworden und verpflichtet sich für ein weiteres Jahr. 1868 lernt er in Frankfurt (Oder) reiten, 1869 wird er Fourier und Schwimmmeister.</p>
+          <p class="zit">„Der Einzug in unsere alte Garnison war dann der Abschluß des Krieges von 1866 …“ <span>(T S. 17)</span></p>
+          <p><b>Abgleich:</b> Abweichend: Das Füsilier-Bataillon zog am 2. Juni 1867 in Sorau ein, über Schildau, Uebigau, Kirchhain, Kalau und Forst. Das Tagebuch nennt Juli 1867 und den Weg über Torgau und Cottbus.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s13">Karte</a></div>
+          <p class="why">RG S. 385–386. Weg auf der Karte nach dem Tagebuch, gestrichelt.</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">16.07.1870</div><div class="rail"></div>
+        <div class="card" id="s14">
+          <h3>Mobilmachung</h3>
+          <p><b>Tagebuch:</b> Auf dem Exerzierplatz in Sorau bringt eine Ordonnanz dem Major einen Brief. Luchmann gehört als Sergeant zu den 33 Fourieren und Quartiermachern unter Premier-Leutnant Schroeder, die noch am selben Tag abfahren.</p>
+          <p class="zit">„Am 16ten Juli standen wir wieder auf dem großen Exerzierplatz … Der Krieg war erklärt!“ <span>(T S. 21)</span></p>
+          <p><b>Abgleich:</b> Abweichend: Der 16. Juli war der erste Mobilmachungstag des Regiments. Den Krieg erklärte Frankreich erst am 19. Juli.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-dfk">Q8</a><a href="index.html#s14">Karte</a></div>
+          <p class="why">RG S. 392; Wikipedia: Kriegserklärung 19.07.1870.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">ab 16.07.1870</div><div class="rail"></div>
+        <div class="card" id="s15">
+          <h3>Mit der Bahn an den Rhein</h3>
+          <p><b>Tagebuch:</b> Die Quartiermacher fahren über Berlin, wo sie mit Droschken vom Frankfurter zum Potsdamer Bahnhof wechseln, über Braunschweig und Köln den Rhein entlang nach Kreuznach. Von dort machen sie Quartiere im Großherzogtum Hessen; überall gibt es Wein.</p>
+          <p class="zit">„… das alte deutsche Lied „fest steht die Wacht am Rhein“ wurde dann auch genügend gebrüllt.“ <span>(T S. 22)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Bahnfahrt über Berlin (Potsdamer Bahnhof), Braunschweig und Köln an den Rhein, Quartiere in Hessen.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s15">Karte</a></div>
+          <p class="why">RG S. 393–396. Bahnfahrt auf der Karte gestrichelt.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">06.08.1870</div><div class="rail"></div>
+        <div class="card" id="s16">
+          <h3>Schlacht bei Spichern</h3>
+          <p><b>Tagebuch:</b> Kaum in Neunkirchen angekommen, fährt das Bataillon unter Alarm nach Saarbrücken und greift die Spicherer Höhen an. Ein Geschoss streift Luchmann quer über den Rücken. Er sammelt etwa 20 Mann und stürmt mit ihnen den Hang. Nach der Schlacht übernimmt er die Geschäfte des Feldwebels.</p>
+          <p class="zit">„… mit den Worten „ein Hundsfott wer zurück bleibt“ ging es den Berg kletternd in die Höhe.“ <span>(T S. 23–24)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Fahrt von Neunkirchen nach St. Johann unter Major v. d. Chevallerie. Die Regimentsgeschichte nennt „Sergeant Luchmann“ unter den besonders Tapferen und führt ihn in der Liste der Träger des Eisernen Kreuzes II. Klasse für Spichern. Die Verluste des Bataillons gibt das Tagebuch mit 300 von 1003 Mann an, die Regimentsgeschichte mit 9 Offizieren und 207 Mann.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-spichern">Q9</a><a href="index.html#s16">Karte</a></div>
+          <p class="why">RG S. 431, 442, 450; Wikipedia: Schlacht am 06.08.1870. Den Streifschuss nennt nur das Tagebuch.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">16.08.1870</div><div class="rail"></div>
+        <div class="card" id="s17">
+          <h3>Mars-la-Tour</h3>
+          <p><b>Tagebuch:</b> Nach dem Übergang über die Mosel gerät das Bataillon in schweres Feuer. In einer Viertelstunde fallen alle Offiziere aus. Luchmann springt vor die Kompanie und stürmt einen ummauerten Hof. Beim Angriff französischer Kürassiere wird er umgeritten und erhält einen Hieb in die rechte Schulter. Am Abend hat jede Kompanie noch etwa 40 Mann.</p>
+          <p class="zit">„… sprang ich vor die Compagnie mit dem Gedanken, was da purzeln soll, das purzelt doch, schwang den Säbel und vorwärts ging es …“ <span>(T S. 25)</span></p>
+          <p><b>Abgleich:</b> Bestätigt, auch namentlich: Bei der 9. Kompanie machte sich „besonders Sergeant Luhmann durch sein Beispiel und durch umsichtige Führung der Mannschaften verdient“; beim Reiterangriff wurden „Sergeant Luhmann und die Unteroffiziere Plagemann und Trautloff der 9. Kompagnie umgeritten und leicht verletzt“. Der ummauerte Hof ist der Weiler Flavigny. Abweichend: Hauptmann Offermann wurde am Knie getroffen, nicht in der Brust.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-mlt">Q10</a><a href="index.html#s17">Karte</a></div>
+          <p class="why">RG S. 465–470 (Schreibweise „Luhmann“); Wikipedia: Schlacht am 16.08.1870.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">17./18.08.1870</div><div class="rail"></div>
+        <div class="card" id="s18">
+          <h3>Gravelotte und St. Privat</h3>
+          <p><b>Tagebuch:</b> Am 17. August übernimmt Hauptmann Polchau das Bataillon; der König kommt auf das Schlachtfeld. Am 18. August steht das Korps zunächst in Reserve und rückt bei Dunkelheit mit Musik auf Vernéville vor. Luchmann trägt den Arm in der Binde und reitet das Pferd seines Hauptmanns.</p>
+          <p class="zit">„… ich trug meinen rechten Arm in der Binde und saß so stolz zu Pferde …“ <span>(T S. 28)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Hauptmann Polchau übernahm nach dem 16. August die Führung des Füsilier-Bataillons. Schlacht bei Gravelotte am 18. August 1870.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-grav">Q11</a><a href="index.html#s18">Karte</a></div>
+          <p class="why">RG S. 485; Wikipedia: Schlacht bei Gravelotte. Der Vormarsch mit Musik steht nur im Tagebuch.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">19.08.–29.10.1870</div><div class="rail"></div>
+        <div class="card" id="s19">
+          <h3>Belagerung von Metz</h3>
+          <p><b>Tagebuch:</b> Zehn Wochen liegt das Bataillon im Regen vor Metz, meist bei Woippy. Luchmann erzählt von Kartoffelsuche zwischen den Linien, einer nächtlichen Begegnung mit einer Landwehrpatrouille und hungernden Franzosen, die um Brot betteln. Ein Kamerad, der Gefreite Arloff, dichtet ein Spottlied auf die Festung.</p>
+          <p class="zit">„… stellt sich der bei der Belagerung von Metz eroberte Rheumatismus ein …“ <span>(T S. 33)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Vorposten bei Saulny und Woippy; am Abend des 27. Oktober kam die Nachricht von der Kapitulation, am nächsten Morgen strömten hungernde Franzosen zu den Vorposten und bettelten um Brot und Erbswurst.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-metz">Q12</a><a href="index.html#s19">Karte</a></div>
+          <p class="why">RG S. 505–506 und 538–539; Wikipedia: Kapitulation am 27.10.1870. Die Landwehr-Episode steht nur im Tagebuch.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">Nov. 1870</div><div class="rail"></div>
+        <div class="card" id="s20">
+          <h3>Eilmärsche zur Loire</h3>
+          <p><b>Tagebuch:</b> Das Korps eilt dem Großherzog von Mecklenburg zu Hilfe. Unterwegs schildert Luchmann Angriffe von Franktireurs, einen Messerangriff in einem Stall und Vergeltung: Gehöfte, aus denen geschossen wird, werden angezündet, ein bewaffneter Bauer wird erschossen. In Pithiviers gewinnt er beim Kartenspiel 1200 Taler.</p>
+          <p class="zit">„Diese Reise, welche in friedlichen Verhältnissen recht intressant sein muß, war für uns eine recht beschwerliche …“ <span>(T S. 34)</span></p>
+          <p><b>Abgleich:</b> Die Marschrichtung passt zur Regimentsgeschichte; die einzelnen Etappen und Vorfälle sind nicht geprüft.</p>
+          <div class="meta"><span class="b self">nur Tagebuch</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s20">Karte</a></div>
+          <p class="why">RG ab S. 550. Die Erschießung und die Brände sind nur im Tagebuch beschrieben; das Tagebuch rechtfertigt sie („Respekt muß sein“).</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">28.11.1870</div><div class="rail"></div>
+        <div class="card" id="s21">
+          <h3>Beaune-la-Rolande</h3>
+          <p><b>Tagebuch:</b> Das Bataillon erreicht Beaune-la-Rolande nach einem Eilmarsch durch aufgeweichte Weinfelder. Am Abend verfolgt es den Feind in der Dunkelheit, fällt vor einem Dorf in einen Bach und macht nach Luchmann etwa 600 Gefangene.</p>
+          <p class="zit">„… und wir sitzen bis an die Brust im Wasser …“ <span>(T S. 38)</span></p>
+          <p><b>Abgleich:</b> Abweichend: Die Schlacht war am 28., nicht am 29. November. Die Regimentsgeschichte bestätigt einen Nachtvorstoß des Füsilier-Bataillons mit der 9. Kompanie unter Hauptmann v. Kracht, aber gegen l&#x27;Orminette und les Saules, über einen 3 m breiten Graben; sie nennt etwa 400 Gefangene des Regiments. Sergeant Schön zeichnete sich aus.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-beaune">Q13</a><a href="index.html#s21">Karte</a></div>
+          <p class="why">RG S. 553–559; Wikipedia: Schlacht am 28.11.1870. Das Tagebuch nennt das Dorf „Freville“.</p>
+        </div>
+      </li>
+      <li class="key">
+        <div class="t">02.12.1870</div><div class="rail"></div>
+        <div class="card" id="s22">
+          <h3>Erkundung bei Bellegarde</h3>
+          <p><b>Tagebuch:</b> Regiment, zwei Batterien und zwei Schwadronen Ulanen sollen den Feind erkunden. Vor Bellegarde entwickelt sich der Gegner in voller Stärke; die Truppe entkommt knapp. Danach liegt die Kompanie bei einer Ferme mit einem großen Weinkeller.</p>
+          <p class="zit">„… es war dies das einzige Mal, wo wir im Deutsch-französischen Kriege Fersengeld gegeben haben.“ <span>(T S. 38)</span></p>
+          <p><b>Abgleich:</b> Abweichend: Die Erkundung war nach der Regimentsgeschichte am 2. Dezember, Fréville war stark besetzt. Das Tagebuch nennt den 30. November.</p>
+          <div class="meta"><span class="b wid">abweichend</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s22">Karte</a></div>
+          <p class="why">RG S. 561–562.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">03./04.12.1870</div><div class="rail"></div>
+        <div class="card" id="s23">
+          <h3>Schlacht von Orléans</h3>
+          <p><b>Tagebuch:</b> Prinz Friedrich Carl lässt den Truppen die Schlacht ankündigen. Vor Chilleurs liegt das Bataillon ungedeckt im Feuer französischer Batterien; Luchmann bleibt stehen, ein junger Fähnrich ahmt ihn nach. Nachts erreicht das Regiment im Schnee Loury, am zweiten Tag ist die Schlacht gewonnen.</p>
+          <p class="zit">„… sagte mir ich solle mir nieder legen, was ich mit den Worten „ich bin nicht müde“ ablehnte …“ <span>(T S. 40)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Schlacht von Orléans am 3. und 4. Dezember 1870. Der Fähnrich „Petcherszym“ ist wahrscheinlich Portepee-Fähnrich v. Pelchrzim, der später Leutnant wurde.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-orleans">Q14</a><a href="index.html#s23">Karte</a></div>
+          <p class="why">RG S. 562–564, Offiziersliste S. 583 und 593; Wikipedia (Suchauszug): Schlacht am 3. und 4.12.1870. Die Zuordnung des Fähnrichs ist eine Vermutung.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">05.12.1870</div><div class="rail"></div>
+        <div class="card" id="s24">
+          <h3>Quartier in Chécy</h3>
+          <p><b>Tagebuch:</b> Nach der Schlacht bezieht das Regiment Quartiere in Chécy an der Loire. Luchmann wohnt bei einem Förster und schreibt, wie sich Einwohner gegenüber Einquartierung klug verhalten sollten.</p>
+          <p class="zit">„Ein freundliches Worth in Feindesland thut mehr, als Braten und Wein die Fülle …“ <span>(T S. 44)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Quartiere in Chécy ab 5. Dezember.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s24">Karte</a></div>
+          <p class="why">RG S. 564–565.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">06.–08.12.1870</div><div class="rail"></div>
+        <div class="card" id="s25">
+          <h3>Verfolgung bis Gien und Briare</h3>
+          <p><b>Tagebuch:</b> Die Kompanie hat die Vorhut. In Châteauneuf wird ein preußischer Dragoner in einem Hof erschossen; die Soldaten misshandeln einen Geistlichen, Luchmann verhindert nach eigener Darstellung einen Lynchmord. In Gien haben die Franzosen die Brücke gesprengt und schießen über die Loire; General v. Alvensleben lässt die Häuser am anderen Ufer in Brand schießen.</p>
+          <p class="zit">„… so beschoßen wir uns gegenseitig über die Loire, was nur wenig Zweck hatte …“ <span>(T S. 45)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Am 8. Dezember Gien, Loirebrücke gesprengt, Beschuss aus der Vorstadt; Alvensleben lässt Batterien die Vorstadt in Brand schießen; Quartier in Briare.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s25">Karte</a></div>
+          <p class="why">RG S. 567–568. Die Vorfälle in Châteauneuf stehen nur im Tagebuch.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">Mitte Dez. 1870</div><div class="rail"></div>
+        <div class="card" id="s26">
+          <h3>Loire abwärts bis Blois</h3>
+          <p><b>Tagebuch:</b> Das Korps kehrt um, Luchmann besichtigt in Orléans die Kathedrale und das Denkmal der Jeanne d&#x27;Arc. Dann geht es die Loire abwärts über Meung und Mer bis Blois. Die Regierung in Tours weicht nach Bordeaux aus. In Mer leeren Luchmann und seine Unteroffiziere ein Fass Rotwein.</p>
+          <p class="zit">„Da es mit der Gefangennahme des Herrn Gambetta nichts war, so kehrten wir vor Tours um …“ <span>(T S. 47)</span></p>
+          <p><b>Abgleich:</b> Nicht geprüft. Dass die französische Regierung von Tours nach Bordeaux auswich, ist allgemein bekannt; das Tagebuch verbindet es mit dem eigenen Vormarsch.</p>
+          <div class="meta"><span class="b self">nur Tagebuch</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="index.html#s26">Karte</a></div>
+          <p class="why">Weg schematisch, gestrichelt.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">20.12.1870–02.01.1871</div><div class="rail"></div>
+        <div class="card" id="s27">
+          <h3>Weihnachten in Beaugency</h3>
+          <p><b>Tagebuch:</b> Die 10. Brigade liegt zwei Wochen in Beaugency. Am zweiten Weihnachtstag erhalten bei einer Parade der Hauptmann und ein Sergeant, die erst mit dem Ersatz gekommen waren, das Eiserne Kreuz. Aus Protest schneidet Luchmann sein eigenes Kreuz ab. Der Vorschlag für das Eiserne Kreuz I. Klasse kommt danach nicht zustande. Am 28. Dezember feiert er Geburtstag; ein Ballon aus Paris wird vergeblich beschossen.</p>
+          <p class="zit">„… das meinige, welches ich stets getragen hatte, los.“ <span>(T S. 48)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Das Regiment lag ab 20. Dezember in Beaugency; ein Divisionsbefehl ist „Beaugency, den 31. Dezember 1870“ datiert. Die Parade und Luchmanns Protest stehen nur im Tagebuch.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s27">Karte</a></div>
+          <p class="why">RG S. 575–578.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">03.–06.01.1871</div><div class="rail"></div>
+        <div class="card" id="s28">
+          <h3>Vendôme</h3>
+          <p><b>Tagebuch:</b> Der Feind sammelt sich bei Le Mans. Am 6. Januar erreicht das Regiment nach einem Gefecht Vendôme und liegt nachts auf dem Pflaster eines Platzes.</p>
+          <p class="zit">„… das liebe Steinpflaster von Vendom. O grausames Schicksal!“ <span>(T S. 49)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Marsch auf Vendôme, Ziel am 6. Januar.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s28">Karte</a></div>
+          <p class="why">RG S. 578.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">10.01.1871</div><div class="rail"></div>
+        <div class="card" id="s29">
+          <h3>Sturm auf Parigné-l&#x27;Évêque</h3>
+          <p><b>Tagebuch:</b> Am Morgen geht das Gerücht vom Frieden um, Arloff spielt Gitarre. Mittags gerät das Bataillon in Feuer vor Parigné. Es stürmt eine Batterie Mitrailleusen; im folgenden Straßenkampf schießen Verteidiger aus den Fenstern, auch Zivilisten werden getroffen. Sergeant Schön wird schwer verwundet und stirbt in der Nacht.</p>
+          <p class="zit">„Es war entsetzlich … niemand dachte daran pardon zu geben.“ <span>(T S. 51)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Sturm auf Parigné-l&#x27;Évêque, Unteroffizier Kurdewan (im Tagebuch „Cordofan“) nimmt Mitrailleusen; Beute: 3½ Geschütze und Mitrailleusen, 2 Fahnen. Sergeant Schön steht in der Verlustliste. Das Friedensgerücht steht nur im Tagebuch.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-lemans">Q15</a><a href="index.html#s29">Karte</a></div>
+          <p class="why">RG S. 585–586, Verlustliste S. 643 ff.; Wikipedia: Schlacht bei Le Mans 10.–12.01.1871.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">11.01.1871</div><div class="rail"></div>
+        <div class="card" id="s30">
+          <h3>Changé: kurz gefangen</h3>
+          <p><b>Tagebuch:</b> Bei Changé schickt Hauptmann v. Kracht Luchmanns Zug gegen seinen Rat in einen besetzten Wald. Der Hauptmann wird ins Bein getroffen und zieht die meisten Leute mit sich zurück. Luchmann gerät mit sechs Mann in Gefangenschaft, überrumpelt die Wachen und kehrt mit ihnen als Gefangenen zurück.</p>
+          <p class="zit">„… so ergaben wir uns in unser Schicksaal.“ <span>(T S. 54)</span></p>
+          <p><b>Abgleich:</b> Bestätigt ist nur die Verwundung: „Hauptmann v. Kracht wurde durch einen Schuß im Oberschenkel verwundet.“ Gefangennahme und Befreiung stehen nur im Tagebuch.</p>
+          <div class="meta"><span class="b part">Regimentsgeschichte</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="index.html#s30">Karte</a></div>
+          <p class="why">RG S. 601.</p>
+        </div>
+      </li>
+      <li>
+        <div class="t">12.01.1871</div><div class="rail"></div>
+        <div class="card" id="s31">
+          <h3>Le Mans</h3>
+          <p><b>Tagebuch:</b> Nach einer Nacht auf Feldwache wird Le Mans genommen. Die Beute ist so groß, dass Tausende Gewehre zerschlagen werden. Mit militärischen Ehren werden die Gefallenen beerdigt, darunter Hauptmann Polchau. Hier enden die Aufzeichnungen.</p>
+          <p class="zit">„Gegen 11 Uhr des Nachts war Le Mans in unseren Händen …“ <span>(T S. 57)</span></p>
+          <p><b>Abgleich:</b> Bestätigt: Le Mans am 12. Januar genommen. Hauptmann Polchau starb am 18. Januar in Parigné, beerdigt am 20. Januar auf dem Kirchhof von Le Mans; das Eiserne Kreuz I. Klasse war für ihn beantragt.</p>
+          <div class="meta"><span class="b ok">bestätigt</span><a href="quellen-abgleich.html#q-tb">Q1</a><a href="quellen-abgleich.html#q-rg">Q2</a><a href="quellen-abgleich.html#q-wp-lemans">Q15</a><a href="index.html#s31">Karte</a></div>
+          <p class="why">RG S. 601 ff. und 619; Wikipedia: Schlacht bei Le Mans.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+  <p class="note">Die vollständige Belegmatrix mit Fundstellen liegt beim Herausgeber der Website. Wörtliche Zitate aus der Regimentsgeschichte sind in heutige Schreibung übertragen (ſ → s); die Schreibweise der Namen folgt dem Original.</p>
+  <p class="qnav"><a class="qbtn" href="quellen-abgleich.html">Quellen</a></p>
+</div>
+<script src="site.js" defer></script>
+<footer class="kk-fuss"><div class="kk-in">
+  <p><a href="https://kaffeeundkommiss.github.io/">Kaffee und Kommiss</a>: Politik, Geschichte und Sicherheitspolitik mit Quellen. Private, nichtkommerzielle Zusammenstellung. Fehler gefunden? Bitte mit Quelle melden.</p>
+</div></footer>
+</body>
+</html>
