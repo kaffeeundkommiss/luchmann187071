@@ -1,0 +1,15 @@
+{ "basis": "https://kaffeeundkommiss.github.io/luchmann187071/", "ordner": "vorschau", "site_name": "Feldwebel Luchmann",
+  "seiten": [
+    { "datei": "index.html", "bild": "start", "kicker": "Einigungskriege · 1866 und 1870/71", "titel": "Feldwebel Luchmann" },
+    { "datei": "tagebuch.html", "bild": "tagebuch", "kicker": "Feldwebel Luchmann", "titel": "Das Tagebuch" },
+    { "datei": "personen.html", "bild": "personen", "kicker": "Feldwebel Luchmann", "titel": "Luchmann und seine Kameraden" },
+    { "datei": "karte-1866.html", "bild": "karte-1866", "kicker": "Feldwebel Luchmann · 1866", "titel": "Karte 1866", "karte": "#svg" },
+    { "datei": "karte-1870.html", "bild": "karte-1870", "kicker": "Feldwebel Luchmann · 1870/71", "titel": "Karte 1870/71", "karte": "#svg" },
+    { "datei": "abgleich.html", "bild": "abgleich", "kicker": "Feldwebel Luchmann", "titel": "Tagebuch und Regimentsgeschichte" },
+    { "datei": "glossar.html", "bild": "glossar", "kicker": "Feldwebel Luchmann", "titel": "Glossar" },
+    { "datei": "quellen-karte.html", "bild": "quellen-karte", "kicker": "Feldwebel Luchmann", "titel": "Quellen: Übersicht und Karten" },
+    { "datei": "quellen-tagebuch.html", "bild": "quellen-tagebuch", "kicker": "Feldwebel Luchmann", "titel": "Quellen: Tagebuch" },
+    { "datei": "quellen-personen.html", "bild": "quellen-personen", "kicker": "Feldwebel Luchmann", "titel": "Quellen: Personen" },
+    { "datei": "quellen-abgleich.html", "bild": "quellen-abgleich", "kicker": "Feldwebel Luchmann", "titel": "Quellen: Abgleich" },
+    { "datei": "quellen-glossar.html", "bild": "quellen-glossar", "kicker": "Feldwebel Luchmann", "titel": "Quellen: Glossar" }
+  ] }
