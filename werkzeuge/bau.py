@@ -455,7 +455,7 @@ def build_personen():
         "Luchmann stammte aus Luckau in der Niederlausitz, stieg im Regiment vom Grenadier zum Feldwebel auf und wurde nach dem Krieg Bahnbeamter im Saarland. Sein Tagebuch nennt Dutzende Offiziere und Kameraden; viele finden sich in der Regimentsgeschichte wieder.") + """      </div>
       <figure class="evfoto">
         <img src="bilder/titelblatt.jpg" width="807" height="1100" alt="Handschriftliches Titelblatt: Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebel Wilhelm Luchmann bei der 9ten Compagnie Grenadier Regiment Prinz Carl von Preußen (2tes Brandenburgisches) No 12" decoding="async">
-        <figcaption>Titelblatt der Handschrift. Ein Foto Luchmanns enthält die Chronik nicht. <a href="quellen-personen.html#f1">Bildnachweis</a></figcaption>
+        <figcaption>Titelblatt der Handschrift. Ein Foto Luchmanns enthält die Chronik nicht. <a href="quellen-personen.html#f2">Bildnachweis</a></figcaption>
       </figure>
     </div>
   </header>
@@ -561,7 +561,8 @@ FIG = [
   ("f5", "Farbiges Gemälde, in der Chronik der Belagerung von Metz zugeordnet (Chronik S. 32). Maler, Titel und Vorlage nicht angegeben und nicht ermittelt."),
   ("f6", "Farbiges Gemälde über zwei Seiten, in der Chronik der Schlacht von Orléans zugeordnet (Chronik S. 41). Maler, Titel und Vorlage nicht angegeben und nicht ermittelt."),
 ]
-FIG_NOTE = "Fotos der Seiten aus dem Exemplar der Familie, zugeschnitten und verkleinert. Veröffentlichung mit Zustimmung der Familie (November 2026). Für die beiden Gemälde ist die Rechtelage offen, weil Maler und Vorlage unbekannt sind; Hinweise bitte mit Quelle melden."
+FIG_NOTE = "Fotos der Seiten aus dem Exemplar der Familie, zugeschnitten und verkleinert. Veröffentlichung mit Zustimmung der Familie (November 2026)."
+FIG_NOTE_GEMAELDE = " Für die beiden Gemälde ist die Rechtelage offen, weil Maler und Vorlage unbekannt sind; Hinweise bitte mit Quelle melden."
 
 def build_quellen(fn, page, title, keys, figs=()):
     desc = f"Quellenverzeichnis zur Seite „{title}“ der Website zu Wilhelm Luchmanns Kriegserlebnissen 1866 und 1870/71."
@@ -575,7 +576,7 @@ def build_quellen(fn, page, title, keys, figs=()):
         h += f'      <li id="q-{k}"><span class="id">{srcno(k)}</span><span>{E(t)}{link} <span class="dep">{E(dep)}</span></span></li>\n'
     h += "    </ol>\n  </section>\n"
     if figs:
-        h += f'  <section class="sect" aria-labelledby="bildH">\n    <h2 id="bildH">Bildnachweis</h2>\n    <p class="hint">{FIG_NOTE}</p>\n    <ol class="srcs">\n'
+        h += f'  <section class="sect" aria-labelledby="bildH">\n    <h2 id="bildH">Bildnachweis</h2>\n    <p class="hint">{FIG_NOTE}{FIG_NOTE_GEMAELDE if any(f in ("f5", "f6") for f, _ in figs) else ""}</p>\n    <ol class="srcs">\n'
         for fid, t in figs:
             h += f'      <li id="{fid}"><span class="id">{fid.upper()}</span><span>{E(t)}</span></li>\n'
         h += "    </ol>\n  </section>\n"
