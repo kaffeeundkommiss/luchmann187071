@@ -18,6 +18,22 @@ INDEXSTYLE = (ROOT / "werkzeuge" / "karte.css").read_text()
 PAGES = [("index.html", "Übersicht"), ("karte-1866.html", "Karte 1866"), ("karte-1870.html", "Karte 1870/71"), ("abgleich.html", "Abgleich"), ("personen.html", "Personen"), ("tagebuch.html", "Tagebuch")]
 NAMES = json.load(open("werkzeuge/orte-namen.json"))
 
+PFAD_A = '<nav class="kk-pfad" aria-label="Pfad"><div class="kk-in"><a href="https://kaffeeundkommiss.github.io/geschichte/">Geschichte</a> › <a href="https://kaffeeundkommiss.github.io/geschichte/einigungskriege/">Einigungskriege 1864–1871</a> › '
+VORSCHAU = re.compile(r'<!-- Vorschau für Linkvorschauen, erzeugt mit werkzeuge/vorschau\.js -->\n(?:<meta (?:property="og:image|name="twitter:)[^>]*>\n)*')
+def schreib(fn, h):
+    """Schreibt eine Seite und übernimmt den Vorschau-Block (og:image) aus der bisherigen Datei.
+    Er wird von werkzeuge/vorschau.js erzeugt; nach Änderungen an Titel oder Beschreibung dort neu ausführen."""
+    alt = Path(fn)
+    m = VORSCHAU.search(alt.read_text(encoding="utf-8")) if alt.exists() else None
+    if m:
+        h = re.sub(r'(<meta property="og:url"[^>]*>\n)', lambda x: x.group(1) + m.group(0), h, count=1)
+    Path(fn).write_text(h)
+
+def pfad(fn):
+    """Pfad zur Themenübersicht unter der Leiste."""
+    letzt = '<span aria-current="page">Feldwebel Luchmann</span>' if fn == "index.html" else '<a href="./">Feldwebel Luchmann</a>'
+    return PFAD_A + letzt + "</div></nav>\n"
+
 def head(fn, title, desc, style, breit=False):
     return f"""<!doctype html>
 <html lang="de" class="kk-b-gesch{' kk-breit' if breit else ''}">
@@ -55,7 +71,7 @@ def head(fn, title, desc, style, breit=False):
   <a class="kk-haus" href="https://kaffeeundkommiss.github.io/"><img src="kk-tasse.svg" alt="" width="22" height="22"><span>Kaffee und Kommiss</span></a>
   <nav class="kk-bereiche" aria-label="Bereiche"><a href="https://kaffeeundkommiss.github.io/geschichte/" aria-current="true">Geschichte</a><a href="https://kaffeeundkommiss.github.io/sicherheitspolitik/"><span class="kk-lang">Sicherheitspolitik</span><span class="kk-kurz">Sicherheit</span></a><a href="https://kaffeeundkommiss.github.io/politik/">Politik</a></nav>
 </div></div>
-<div class="kk-kopf"><div class="kk-in">
+{pfad(fn)}<div class="kk-kopf"><div class="kk-in">
   <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
 </div></div>
 <div class="wrap">
@@ -290,7 +306,7 @@ def build_map(camp):
   <p class="sources">Datengrundlage: Luchmanns Tagebuch in der Abschrift von 1994 und die Regimentsgeschichte von Hugo von Mueller (1875), dazu Wikipedia für Schlachtdaten. Die Orte sind nach ihrer heutigen Lage eingetragen und auf etwa 1–2 km genau; Wege zwischen den Stationen sind gerade Linien und damit schematisch. {MAP_SOURCES}</p>
 """
     h += f'  <p class="qnav"><a class="qbtn" href="quellen-karte.html">Quellen</a></p>\n</div>\n<script src="karte-daten-{camp}.js"></script>\n<script src="karte.js"></script>\n<script src="site.js" defer></script>\n' + FOOT
-    Path(I["file"]).write_text(h)
+    schreib(I["file"], h)
 
 # ---------- Übersicht ----------
 OV_PLACES = [("sorau", 6, -6, "start"), ("berlin", 6, 4, "start"), ("prag", -6, 4, "end"), ("koeniggraetz", 6, 4, "start"), ("wien", -6, 4, "end"),
@@ -362,7 +378,7 @@ def build_index():
 """
     n66 = len(CAMP_STEPS["1866"])
     h += f'  <p class="qnav"><a class="qbtn" href="quellen-karte.html">Quellen</a></p>\n</div>\n<script>\n/* frühere Verweise auf index.html#sN führen auf die passende Karte */\n(function () {{ var m = /^#s(\\d+)$/.exec(location.hash); if (!m) return; var n = +m[1]; location.replace(n <= {n66} ? "karte-1866.html#s" + n : "karte-1870.html#s" + (n - {n66})); }})();\n</script>\n<script src="site.js" defer></script>\n' + FOOT
-    Path("index.html").write_text(h)
+    schreib("index.html", h)
 
 OVSTYLE = """
 .intro-ov { display: grid; gap: 8px }
@@ -442,7 +458,7 @@ def build_abgleich():
 """
       h += "    </ol>\n  </section>\n"
     h += '  <p class="note">Die vollständige Belegmatrix mit Fundstellen liegt beim Herausgeber der Website. Wörtliche Zitate aus der Regimentsgeschichte sind in heutige Schreibung übertragen (ſ → s); die Schreibweise der Namen folgt dem Original.</p>\n'
-    Path("abgleich.html").write_text(h + tail("quellen-abgleich.html"))
+    schreib("abgleich.html", h + tail("quellen-abgleich.html"))
 
 # ---------- Personen ----------
 def build_personen():
@@ -496,7 +512,7 @@ def build_personen():
 """
     h += "    </div>\n  </section>\n"
     h += '  <p class="note">Die Seite nennt aus der Familie nur Wilhelm Luchmann und die Herausgeber der Chronik. Die Personen aus dem Tagebuch sind Soldaten des 19. Jahrhunderts.</p>\n'
-    Path("personen.html").write_text(h + tail("quellen-personen.html"))
+    schreib("personen.html", h + tail("quellen-personen.html"))
 
 # ---------- Tagebuch ----------
 def build_tagebuch():
@@ -539,7 +555,7 @@ def build_tagebuch():
     <p class="note">Zitate in der Schreibung der Abschrift von 1994. Die Texterkennung des eingescannten Buchs kann einzelne Zeichen verfälscht haben; die Zitate sind mit dem Bild der Seite verglichen.</p>
   </section>
 """
-    Path("tagebuch.html").write_text(h + tail("quellen-tagebuch.html"))
+    schreib("tagebuch.html", h + tail("quellen-tagebuch.html"))
 
 # ---------- Glossar ----------
 def build_glossar():
@@ -550,7 +566,7 @@ def build_glossar():
     for gid, t, re_, d in sorted(GLOSSAR, key=lambda g: g[1].lower()):
         h += f'      <div id="{gid}"><dt>{E(t)}</dt><dd>{E(d)}</dd><dd class="gsrc">Worterklärung ohne Einzelbeleg</dd></div>\n'
     h += "    </dl>\n  </section>\n"
-    Path("glossar.html").write_text(h + tail("quellen-glossar.html"))
+    schreib("glossar.html", h + tail("quellen-glossar.html"))
 
 # ---------- Quellenseiten ----------
 FIG = [
@@ -583,7 +599,7 @@ def build_quellen(fn, page, title, keys, figs=()):
     if page == "index.html":
         h += '  <section class="sect" aria-labelledby="kH">\n    <h2 id="kH">Grundkarte</h2>\n    <p class="hint">Grenzen und Küsten: Natural Earth, Admin 0 Countries 1:50 Mio., über das Paket world-atlas (gemeinfrei). Flüsse: Natural Earth, Rivers and Lake Centerlines und Rivers Europe 1:10 Mio. (gemeinfrei). Projektion: konforme Kegelprojektion nach Lambert. Es sind heutige Grenzen; die Landesnamen 1866/1870 sind schematisch gesetzt. Ortskoordinaten: heutige Lage der Orte, eigene Zuordnung.</p>\n    <p class="hint">Detailkarten 1866 und 1870/71: Höhenlinien aus den Terrain Tiles von Mapzen auf AWS Open Data (Zoomstufe 8, Datengrundlage u. a. SRTM), geglättet, Abstand 100 bis 200 m. Dörfer: GeoNames (CC BY 4.0) über die Sammlung cities.json (lutangar/cities.json auf GitHub), automatisch ausgewählt nahe am Weg und in heutiger Schreibweise; erzeugt mit werkzeuge/detail.mjs.</p>\n  </section>\n'
     h += f'  <p class="qnav"><a class="qbtn" href="{page}">Zurück zu „{title}“</a></p>\n</div>\n<script src="site.js" defer></script>\n' + FOOT
-    Path(fn).write_text(h)
+    schreib(fn, h)
 
 # ---------- site.js ----------
 def build_sitejs():
