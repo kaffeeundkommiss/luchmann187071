@@ -129,7 +129,7 @@ STEPS = [
    text="Kaum in Neunkirchen angekommen, fährt das Bataillon unter Alarm nach Saarbrücken und greift die Spicherer Höhen an. Ein Geschoss streift Luchmann quer über den Rücken. Er sammelt etwa 20 Mann und stürmt mit ihnen den Hang. Nach der Schlacht übernimmt er die Geschäfte des Feldwebels.",
    quote=("… mit den Worten „ein Hundsfott wer zurück bleibt“ ging es den Berg kletternd in die Höhe.", "T S. 23–24"),
    check="Bestätigt: Fahrt von Neunkirchen nach St. Johann unter Major v. d. Chevallerie. Die Regimentsgeschichte nennt „Sergeant Luchmann“ unter den besonders Tapferen und führt ihn in der Liste der Träger des Eisernen Kreuzes II. Klasse für Spichern. Die Verluste des Bataillons gibt das Tagebuch mit 300 von 1003 Mann an, die Regimentsgeschichte mit 9 Offizieren und 207 Mann.",
-   bel="2", src=["tb", "rg", "wp-spichern"], note="RG S. 431, 442, 450; Wikipedia: Schlacht am 06.08.1870. Den Streifschuss nennt nur das Tagebuch.",
+   bel="2", src=["tb", "rg", "wp-spichern"], note="RG S. 431, 442, 450; Wikipedia: Schlacht am 06.08.1870. Den Streifschuss nennt nur das Tagebuch. Die Verleihung des Eisernen Kreuzes II. Klasse für Spichern belegt nur die Regimentsgeschichte (S. 450); das Tagebuch erwähnt das eigene Kreuz erst in Beaugency (T S. 48–49). Eine weitere Quelle war nicht zu finden.",
    mark=("e", "Eisernes Kreuz II. Klasse")),
  dict(camp="1870", date="1870-08-16", dl="16.08.1870", moves=["vionville"], title="Mars-la-Tour",
    sub="Luchmann führt die 9. Kompanie",
@@ -230,7 +230,7 @@ STEPS = [
 PERSONS = [
  ("Wilhelm Luchmann (1844–1907)", "Sergeant und Feldwebel, 9. Kompanie, Verfasser",
   "Geboren am 28.12.1844 in Luckau. 1864 eingestellt, 1866 Gefreiter, in Sachsen Unteroffizier, 1869 Fourier, 1870 Sergeant, führt die 9. Kompanie nach dem 16.08.1870 als Feldwebel.",
-  "Regimentsgeschichte nennt „Sergeant Luchmann“ (Spichern, EK II) und „Sergeant Luhmann“ (Mars-la-Tour, umgeritten). Lebensdaten nach dem Vorwort und Nachwort der Familienchronik.", "1"),
+  "Regimentsgeschichte nennt „Sergeant Luchmann“ (Spichern, EK II) und „Sergeant Luhmann“ (Mars-la-Tour, umgeritten). Die EK-II-Verleihung ist nur durch die Regimentsgeschichte belegt; eine zweite Quelle war nicht zu finden. Lebensdaten nach dem Vorwort und Nachwort der Familienchronik.", "1"),
  ("Hauptmann v. Schwerin", "Kompaniechef 1866",
   "Schickt Luchmann und Knoll 1866 zur Strafe auf Patrouille; 1870/71 als Brigadegeneral erwähnt, der sich noch später gern an Beaugency erinnert.",
   "Die Regimentsgeschichte nennt Hauptmann v. Schwerin 1866 bei Gitschin und einen Brigadekommandeur v. Schwerin 1870 (Brigadebefehl vom 31.12.1870). Ob es dieselbe Person ist, wurde nicht geprüft.", "1"),
