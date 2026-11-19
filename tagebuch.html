@@ -68,10 +68,10 @@ header { display: grid; gap: 10px }
 .logo-plane { fill: var(--red) }
 .logo-text { fill: var(--ink); font: 700 12.5px var(--f-display); letter-spacing: .16em }
 .eyebrow { font: 600 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red) }
-h1 { font: 700 clamp(28px, 5vw, 46px)/1 var(--f-display); margin: 0; text-transform: uppercase; text-wrap: balance }
+h1, .h1 { font: 700 clamp(28px, 5vw, 46px)/1 var(--f-display); margin: 0; text-transform: uppercase; text-wrap: balance }
 .lede { margin: 0; max-width: 68ch; color: var(--muted) }
 .evhead { display: grid; gap: 6px; margin-top: 8px }
-.evhead h2.evtitle { font: 700 clamp(26px, 4vw, 36px)/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .01em; margin: 0; text-wrap: balance }
+.evhead .evtitle { font: 700 clamp(26px, 4vw, 36px)/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .01em; margin: 0; text-wrap: balance }
 nav.pages { display: flex; gap: 8px; flex-wrap: wrap }
 nav.pages a { font: 600 14px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); text-decoration: none;
   border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px 8px; background: var(--panel) }
@@ -97,7 +97,7 @@ h2 { font: 700 20px/1 var(--f-display); text-transform: uppercase; letter-spacin
 .status li { display: inline-flex; align-items: center; gap: 7px }
 .b { display: inline-block; font: 600 11.5px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px 3px; border-radius: 2px; border: 1px solid; white-space: nowrap }
 .b.ok { color: var(--j6); border-color: var(--j6) }
-.b.part { color: var(--j10); border-color: var(--j10) }
+.b.part { color: color-mix(in srgb, var(--j10) 70%, var(--ink)); border-color: var(--j10) }
 .b.one { color: var(--muted); border-color: var(--border); border-style: dashed }
 .b.wid { color: var(--panel); background: var(--red); border-color: var(--red) }
 .day { margin: 6px 0 0; font: 600 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
@@ -130,6 +130,7 @@ ol.tl > li.key .rail::after { background: var(--red); border-color: var(--red) }
 .th dl { margin: 0; display: grid; gap: 6px; font-size: 14.5px }
 .th dt { font: 600 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
 .th dd { margin: 0 }
+.th .thtext { margin: 0; font-size: 14.5px }
 
 /* Widersprüche, Quellen */
 .tbl { width: 100%; border-collapse: collapse; font-size: 14.5px }
@@ -143,7 +144,7 @@ ol.srcs .dep { color: var(--muted); font-size: 13.5px }
 ol.srcs a { color: var(--ink); overflow-wrap: anywhere }
 ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-soft) }
 .note { font-size: 13.5px; color: var(--muted); font-style: italic; margin: 0 }
-.hint a, .note a, .why a, .th dd a, .meta span a { color: var(--ink) }
+.hint a, .note a, .why a, .th dd a, .th .thtext a, .meta span a { color: var(--ink) }
 
 /* Zahlen */
 .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px }
@@ -184,12 +185,12 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
 <div class="kk-kopf"><div class="kk-in">
   <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
 </div></div>
-<div class="wrap">
+<main class="wrap" id="inhalt">
   <header>
     <div class="brand">
       <div class="brand-text">
         <div class="eyebrow">Deutscher Krieg 1866 · Deutsch-Französischer Krieg 1870/71</div>
-        <h1>Die Kriegserlebnisse des Feldwebels Luchmann</h1>
+        <p class="h1">Die Kriegserlebnisse des Feldwebels Luchmann</p>
       </div>
     </div>
     <nav class="pages" aria-label="Seiten">
@@ -202,7 +203,7 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
     </nav>
     <div class="evhead">
       <div class="eyebrow">Quelle</div>
-      <h2 class="evtitle">Das Tagebuch und die Familienchronik</h2>
+      <h1 class="evtitle">Das Tagebuch und die Familienchronik</h1>
     </div>
     <p class="lede">Luchmanns Aufzeichnungen sind kein tägliches Kriegstagebuch, sondern eine spätere Erzählung in deutscher Schrift. Seine Familie hat sie 1994 in lateinische Schrift übertragen, mit Karten und Erläuterungen ergänzt und binden lassen.</p>
   </header>
@@ -215,10 +216,10 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
       <figure><img src="bilder/handschrift-1870.jpg" width="808" height="1100" alt="Handschriftseite mit der Überschrift Der Feldzug 1870/71" loading="lazy" decoding="async"><figcaption>Beginn des Teils „Der Feldzug 1870/71“. <a href="quellen-tagebuch.html#f4">F4</a></figcaption></figure>
     </div>
     <div class="theses">
-      <div class="th lead"><h3>Die Handschrift</h3><dl><dd>Ein Heft in deutscher Schreibschrift mit dem Titel „Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebel Wilhelm Luchmann“. Wann Luchmann es schrieb, ist unbekannt. Es muss nach 1871 entstanden sein: Er nennt Ereignisse „nach Rückkehr in die Garnison“ und spricht vom Kaiser. Das Original kam 1991 aus dem Nachlass eines Verwandten an den Herausgeber.</dd></dl></div>
-      <div class="th"><h3>Die Abschrift von 1994</h3><dl><dd>Gertrud Luchmann übertrug den Text im Sommer 1994 von Hand in lateinische Schrift, nach Angabe des Herausgebers ohne Korrekturen. Einzelne Namen und Wörter waren unleserlich oder verblasst. Gerd Luchmann gab die Abschrift im November 1994 in Trier als gebundene Familienchronik heraus, mit Marschrouten, zwei Karten aus Atlanten, zwei Gemälden und kurzen Texten aus Geschichtsbüchern.</dd></dl></div>
-      <div class="th"><h3>Was Luchmann erzählt</h3><dl><dd>Gefechte, Märsche und Quartiere, aber vor allem Episoden: Streiche, Wein, Kartenspiel, Mädchen, Hunger. Er schildert auch Gewalt gegen Zivilisten: angezündete Gehöfte, einen erschossenen Bauern, einen misshandelten Geistlichen, den Straßenkampf in Parigné. Diese Stellen gibt die Seite wieder, ohne sie zu übernehmen.</dd></dl></div>
-      <div class="th"><h3>Wie zuverlässig?</h3><dl><dd>Wege, Quartiere, Gefechte und Namen stimmen meist mit der Regimentsgeschichte überein, oft bis in Einzelheiten. Daten liegen häufig Tage oder Wochen daneben, Zahlen sind aufgerundet. Seine eigene Rolle bei Spichern und Mars-la-Tour bestätigt die Regimentsgeschichte namentlich. Viele Anekdoten lassen sich nicht prüfen. Siehe <a href="abgleich.html">Abgleich</a>.</dd></dl></div>
+      <div class="th lead"><h3>Die Handschrift</h3><p class="thtext">Ein Heft in deutscher Schreibschrift mit dem Titel „Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebel Wilhelm Luchmann“. Wann Luchmann es schrieb, ist unbekannt. Es muss nach 1871 entstanden sein: Er nennt Ereignisse „nach Rückkehr in die Garnison“ und spricht vom Kaiser. Das Original kam 1991 aus dem Nachlass eines Verwandten an den Herausgeber.</p></div>
+      <div class="th"><h3>Die Abschrift von 1994</h3><p class="thtext">Gertrud Luchmann übertrug den Text im Sommer 1994 von Hand in lateinische Schrift, nach Angabe des Herausgebers ohne Korrekturen. Einzelne Namen und Wörter waren unleserlich oder verblasst. Gerd Luchmann gab die Abschrift im November 1994 in Trier als gebundene Familienchronik heraus, mit Marschrouten, zwei Karten aus Atlanten, zwei Gemälden und kurzen Texten aus Geschichtsbüchern.</p></div>
+      <div class="th"><h3>Was Luchmann erzählt</h3><p class="thtext">Gefechte, Märsche und Quartiere, aber vor allem Episoden: Streiche, Wein, Kartenspiel, Mädchen, Hunger. Er schildert auch Gewalt gegen Zivilisten: angezündete Gehöfte, einen erschossenen Bauern, einen misshandelten Geistlichen, den Straßenkampf in Parigné. Diese Stellen gibt die Seite wieder, ohne sie zu übernehmen.</p></div>
+      <div class="th"><h3>Wie zuverlässig?</h3><p class="thtext">Wege, Quartiere, Gefechte und Namen stimmen meist mit der Regimentsgeschichte überein, oft bis in Einzelheiten. Daten liegen häufig Tage oder Wochen daneben, Zahlen sind aufgerundet. Seine eigene Rolle bei Spichern und Mars-la-Tour bestätigt die Regimentsgeschichte namentlich. Viele Anekdoten lassen sich nicht prüfen. Siehe <a href="abgleich.html">Abgleich</a>.</p></div>
     </div>
   </section>
   <section class="sect" aria-labelledby="bH">
@@ -241,7 +242,7 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
     <p class="note">Zitate in der Schreibung der Abschrift von 1994. Die Texterkennung des eingescannten Buchs kann einzelne Zeichen verfälscht haben; die Zitate sind mit dem Bild der Seite verglichen.</p>
   </section>
   <p class="qnav"><a class="qbtn" href="quellen-tagebuch.html">Quellen</a></p>
-</div>
+</main>
 <script src="site.js" defer></script>
 <footer class="kk-fuss"><div class="kk-in">
   <p><a href="https://kaffeeundkommiss.github.io/">Kaffee und Kommiss</a>: Politik, Geschichte und Sicherheitspolitik mit Quellen. Private, nichtkommerzielle Zusammenstellung. Fehler gefunden? Bitte mit Quelle melden.</p>

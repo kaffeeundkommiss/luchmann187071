@@ -20,7 +20,31 @@ NAMES = json.load(open("werkzeuge/orte-namen.json"))
 
 PFAD_A = '<nav class="kk-pfad" aria-label="Pfad"><div class="kk-in"><a href="https://kaffeeundkommiss.github.io/geschichte/">Geschichte</a> › <a href="https://kaffeeundkommiss.github.io/geschichte/einigungskriege/">Einigungskriege 1864–1871</a> › '
 VORSCHAU = re.compile(r'<!-- Vorschau für Linkvorschauen, erzeugt mit werkzeuge/vorschau\.js -->\n(?:<meta (?:property="og:image|name="twitter:)[^>]*>\n)*')
+def close_idx(s,start,tag='div'):
+    # start = index of opening tag; return index of matching closing tag
+    depth=0
+    for m in re.finditer(r'<(/?)%s\b[^>]*>'%tag,s[start:]):
+        if m.group(1): depth-=1
+        else: depth+=1
+        if depth==0: return start+m.start(), start+m.end()
+    raise SystemExit('unbalanced')
+def _umbau(s):
+    i=s.find('<div class="wrap">')
+    if i>=0:
+        a,b=close_idx(s,i)
+        s=s[:a]+'</main>'+s[b:]
+        s=s[:i]+'<main class="wrap" id="inhalt">'+s[i+len('<div class="wrap">'):]
+    if '<h2 class="evtitle">' in s and re.search(r'<h1>',s):
+        s=re.sub(r'<h1>(.*?)</h1>',r'<p class="h1">\1</p>',s,count=1)
+        s=re.sub(r'<h2 class="evtitle">(.*?)</h2>',r'<h1 class="evtitle">\1</h1>',s,count=1)
+    s=s.replace('\nh1 { font:','\nh1, .h1 { font:')
+    s=s.replace('.evhead h2.evtitle {','.evhead .evtitle {')
+    s=s.replace('summary,h1,h2,h3,nav,','summary,h1,.h1,h2,h3,nav,')
+    return s
+
+# Glossar: Seitentitel als h1 wie auf der Richthofen-Seite
 def schreib(fn, h):
+    h = _umbau(h)
     """Schreibt eine Seite und übernimmt den Vorschau-Block (og:image) aus der bisherigen Datei.
     Er wird von werkzeuge/vorschau.js erzeugt; nach Änderungen an Titel oder Beschreibung dort neu ausführen."""
     alt = Path(fn)
@@ -143,7 +167,7 @@ CONTROLS_PANEL = """    <section class="controls" aria-label="Zeitleiste">
       <div class="ruler" id="ruler"><div class="axis"></div><div class="prog" id="prog"></div><div class="playhead" id="playhead"></div></div>
     </section>
 
-    <aside class="panel" id="panel" aria-live="polite">
+    <section class="panel" id="panel" aria-label="Ausgewählter Schritt" aria-live="polite">
       <div class="count"><span id="pCount"></span><span id="pFront"></span></div>
       <h2 id="pName"></h2>
       <div class="sub" id="pSub"></div>
@@ -158,7 +182,7 @@ CONTROLS_PANEL = """    <section class="controls" aria-label="Zeitleiste">
           <div class="src" id="pSrc"></div>
         </div>
       </details>
-    </aside>
+    </section>
     <details class="legend-m" id="legendM"><summary>Legende</summary></details>
   </section>
 
@@ -426,10 +450,10 @@ def build_abgleich():
     h += """  <section class="sect" aria-labelledby="muH">
     <h2 id="muH">Muster der Abweichungen</h2>
     <div class="theses">
-      <div class="th lead"><h3>Daten um Tage oder Wochen verschoben</h3><dl><dd>Ausmarsch „16. Juni“ statt 16. Mai 1866, Königgrätz „2. Juli“ statt 3. Juli, Beaune-la-Rolande „29.“ statt 28. November, Bellegarde „30. November“ statt 2. Dezember, Rückkehr „Juli“ statt Juni 1867.</dd></dl></div>
-      <div class="th"><h3>Zahlen aufgerundet</h3><dl><dd>Bei Spichern 300 statt 207 Mann Verlust des Bataillons, in Beaune-la-Rolande 600 statt etwa 400 Gefangene, in Göding 400 bis 500 statt 100 Zigarren je Mann.</dd></dl></div>
-      <div class="th"><h3>Orte verwechselt oder zusammengezogen</h3><dl><dd>Parade bei „Nikolsburg“ statt auf dem Marchfeld, der Elbübergang vor statt nach Königgrätz, Mobilmachung und Kriegserklärung am selben Tag.</dd></dl></div>
-      <div class="th"><h3>Was sich bestätigt</h3><dl><dd>Wege, Quartiere und Gefechte des Füsilier-Bataillons, die Namen der Offiziere (oft in eigener Schreibung) und Luchmanns eigene Rolle bei Spichern und Mars-la-Tour, die die Regimentsgeschichte namentlich nennt.</dd></dl></div>
+      <div class="th lead"><h3>Daten um Tage oder Wochen verschoben</h3><p class="thtext">Ausmarsch „16. Juni“ statt 16. Mai 1866, Königgrätz „2. Juli“ statt 3. Juli, Beaune-la-Rolande „29.“ statt 28. November, Bellegarde „30. November“ statt 2. Dezember, Rückkehr „Juli“ statt Juni 1867.</p></div>
+      <div class="th"><h3>Zahlen aufgerundet</h3><p class="thtext">Bei Spichern 300 statt 207 Mann Verlust des Bataillons, in Beaune-la-Rolande 600 statt etwa 400 Gefangene, in Göding 400 bis 500 statt 100 Zigarren je Mann.</p></div>
+      <div class="th"><h3>Orte verwechselt oder zusammengezogen</h3><p class="thtext">Parade bei „Nikolsburg“ statt auf dem Marchfeld, der Elbübergang vor statt nach Königgrätz, Mobilmachung und Kriegserklärung am selben Tag.</p></div>
+      <div class="th"><h3>Was sich bestätigt</h3><p class="thtext">Wege, Quartiere und Gefechte des Füsilier-Bataillons, die Namen der Offiziere (oft in eigener Schreibung) und Luchmanns eigene Rolle bei Spichern und Mars-la-Tour, die die Regimentsgeschichte namentlich nennt.</p></div>
     </div>
   </section>
 """
@@ -529,10 +553,10 @@ def build_tagebuch():
       <figure><img src="bilder/handschrift-1870.jpg" width="808" height="1100" alt="Handschriftseite mit der Überschrift Der Feldzug 1870/71" loading="lazy" decoding="async"><figcaption>Beginn des Teils „Der Feldzug 1870/71“. <a href="quellen-tagebuch.html#f4">F4</a></figcaption></figure>
     </div>
     <div class="theses">
-      <div class="th lead"><h3>Die Handschrift</h3><dl><dd>Ein Heft in deutscher Schreibschrift mit dem Titel „Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebel Wilhelm Luchmann“. Wann Luchmann es schrieb, ist unbekannt. Es muss nach 1871 entstanden sein: Er nennt Ereignisse „nach Rückkehr in die Garnison“ und spricht vom Kaiser. Das Original kam 1991 aus dem Nachlass eines Verwandten an den Herausgeber.</dd></dl></div>
-      <div class="th"><h3>Die Abschrift von 1994</h3><dl><dd>Gertrud Luchmann übertrug den Text im Sommer 1994 von Hand in lateinische Schrift, nach Angabe des Herausgebers ohne Korrekturen. Einzelne Namen und Wörter waren unleserlich oder verblasst. Gerd Luchmann gab die Abschrift im November 1994 in Trier als gebundene Familienchronik heraus, mit Marschrouten, zwei Karten aus Atlanten, zwei Gemälden und kurzen Texten aus Geschichtsbüchern.</dd></dl></div>
-      <div class="th"><h3>Was Luchmann erzählt</h3><dl><dd>Gefechte, Märsche und Quartiere, aber vor allem Episoden: Streiche, Wein, Kartenspiel, Mädchen, Hunger. Er schildert auch Gewalt gegen Zivilisten: angezündete Gehöfte, einen erschossenen Bauern, einen misshandelten Geistlichen, den Straßenkampf in Parigné. Diese Stellen gibt die Seite wieder, ohne sie zu übernehmen.</dd></dl></div>
-      <div class="th"><h3>Wie zuverlässig?</h3><dl><dd>Wege, Quartiere, Gefechte und Namen stimmen meist mit der Regimentsgeschichte überein, oft bis in Einzelheiten. Daten liegen häufig Tage oder Wochen daneben, Zahlen sind aufgerundet. Seine eigene Rolle bei Spichern und Mars-la-Tour bestätigt die Regimentsgeschichte namentlich. Viele Anekdoten lassen sich nicht prüfen. Siehe <a href="abgleich.html">Abgleich</a>.</dd></dl></div>
+      <div class="th lead"><h3>Die Handschrift</h3><p class="thtext">Ein Heft in deutscher Schreibschrift mit dem Titel „Kriegs-Erlebnisse von 1866 und 1870/71 des Feldwebel Wilhelm Luchmann“. Wann Luchmann es schrieb, ist unbekannt. Es muss nach 1871 entstanden sein: Er nennt Ereignisse „nach Rückkehr in die Garnison“ und spricht vom Kaiser. Das Original kam 1991 aus dem Nachlass eines Verwandten an den Herausgeber.</p></div>
+      <div class="th"><h3>Die Abschrift von 1994</h3><p class="thtext">Gertrud Luchmann übertrug den Text im Sommer 1994 von Hand in lateinische Schrift, nach Angabe des Herausgebers ohne Korrekturen. Einzelne Namen und Wörter waren unleserlich oder verblasst. Gerd Luchmann gab die Abschrift im November 1994 in Trier als gebundene Familienchronik heraus, mit Marschrouten, zwei Karten aus Atlanten, zwei Gemälden und kurzen Texten aus Geschichtsbüchern.</p></div>
+      <div class="th"><h3>Was Luchmann erzählt</h3><p class="thtext">Gefechte, Märsche und Quartiere, aber vor allem Episoden: Streiche, Wein, Kartenspiel, Mädchen, Hunger. Er schildert auch Gewalt gegen Zivilisten: angezündete Gehöfte, einen erschossenen Bauern, einen misshandelten Geistlichen, den Straßenkampf in Parigné. Diese Stellen gibt die Seite wieder, ohne sie zu übernehmen.</p></div>
+      <div class="th"><h3>Wie zuverlässig?</h3><p class="thtext">Wege, Quartiere, Gefechte und Namen stimmen meist mit der Regimentsgeschichte überein, oft bis in Einzelheiten. Daten liegen häufig Tage oder Wochen daneben, Zahlen sind aufgerundet. Seine eigene Rolle bei Spichern und Mars-la-Tour bestätigt die Regimentsgeschichte namentlich. Viele Anekdoten lassen sich nicht prüfen. Siehe <a href="abgleich.html">Abgleich</a>.</p></div>
     </div>
   </section>
   <section class="sect" aria-labelledby="bH">
@@ -561,7 +585,7 @@ def build_tagebuch():
 def build_glossar():
     desc = "Begriffe zu Luchmanns Kriegserlebnissen 1866 und 1870/71: Dienstgrade, Waffen, Truppen und Lagerleben."
     h = head("glossar.html", "Glossar: Begriffe zu 1866 und 1870/71", desc, SUBSTYLE + "\n.gloss { display: grid; gap: 12px; margin: 0 } .gloss > div { background: var(--panel); border: 1px solid var(--rule); border-radius: 3px; padding: 10px 14px } .gloss dt { font: 700 18px/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .03em } .gloss dd { margin: 4px 0 0 } .gloss .gsrc { font-size: 13.5px; color: var(--muted) } .gloss .gsrc a { color: var(--ink) } .gloss > div:target { outline: 3px solid var(--red-soft) }\n")
-    h += "  <header>\n" + brand() + nav("glossar.html") + '    <p class="lede">Kurze Erklärungen der Fachbegriffe, die auf den Seiten vorkommen. Auf den anderen Seiten lassen sich die Begriffe beim ersten Vorkommen antippen.</p>\n  </header>\n'
+    h += "  <header>\n" + brand().replace("Deutscher Krieg 1866 · Deutsch-Französischer Krieg 1870/71", "Begriffe und Abkürzungen").replace("Die Kriegserlebnisse des Feldwebels Luchmann", "Glossar") + nav("glossar.html") + '    <p class="lede">Kurze Erklärungen der Fachbegriffe, die auf den Seiten vorkommen. Auf den anderen Seiten lassen sich die Begriffe beim ersten Vorkommen antippen.</p>\n  </header>\n'
     h += '  <section class="sect" aria-labelledby="gH">\n    <h2 id="gH">Begriffe</h2>\n    <dl class="gloss glnone" id="gloss">\n'
     for gid, t, re_, d in sorted(GLOSSAR, key=lambda g: g[1].lower()):
         h += f'      <div id="{gid}"><dt>{E(t)}</dt><dd>{E(d)}</dd><dd class="gsrc">Worterklärung ohne Einzelbeleg</dd></div>\n'

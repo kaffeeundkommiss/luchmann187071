@@ -68,10 +68,10 @@ header { display: grid; gap: 10px }
 .logo-plane { fill: var(--red) }
 .logo-text { fill: var(--ink); font: 700 12.5px var(--f-display); letter-spacing: .16em }
 .eyebrow { font: 600 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red) }
-h1 { font: 700 clamp(28px, 5vw, 46px)/1 var(--f-display); margin: 0; text-transform: uppercase; text-wrap: balance }
+h1, .h1 { font: 700 clamp(28px, 5vw, 46px)/1 var(--f-display); margin: 0; text-transform: uppercase; text-wrap: balance }
 .lede { margin: 0; max-width: 68ch; color: var(--muted) }
 .evhead { display: grid; gap: 6px; margin-top: 8px }
-.evhead h2.evtitle { font: 700 clamp(26px, 4vw, 36px)/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .01em; margin: 0; text-wrap: balance }
+.evhead .evtitle { font: 700 clamp(26px, 4vw, 36px)/1.05 var(--f-display); text-transform: uppercase; letter-spacing: .01em; margin: 0; text-wrap: balance }
 nav.pages { display: flex; gap: 8px; flex-wrap: wrap }
 nav.pages a { font: 600 14px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); text-decoration: none;
   border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px 8px; background: var(--panel) }
@@ -97,7 +97,7 @@ h2 { font: 700 20px/1 var(--f-display); text-transform: uppercase; letter-spacin
 .status li { display: inline-flex; align-items: center; gap: 7px }
 .b { display: inline-block; font: 600 11.5px/1 var(--f-display); letter-spacing: .1em; text-transform: uppercase; padding: 4px 7px 3px; border-radius: 2px; border: 1px solid; white-space: nowrap }
 .b.ok { color: var(--j6); border-color: var(--j6) }
-.b.part { color: var(--j10); border-color: var(--j10) }
+.b.part { color: color-mix(in srgb, var(--j10) 70%, var(--ink)); border-color: var(--j10) }
 .b.one { color: var(--muted); border-color: var(--border); border-style: dashed }
 .b.wid { color: var(--panel); background: var(--red); border-color: var(--red) }
 .day { margin: 6px 0 0; font: 600 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
@@ -130,6 +130,7 @@ ol.tl > li.key .rail::after { background: var(--red); border-color: var(--red) }
 .th dl { margin: 0; display: grid; gap: 6px; font-size: 14.5px }
 .th dt { font: 600 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
 .th dd { margin: 0 }
+.th .thtext { margin: 0; font-size: 14.5px }
 
 /* Widersprüche, Quellen */
 .tbl { width: 100%; border-collapse: collapse; font-size: 14.5px }
@@ -143,7 +144,7 @@ ol.srcs .dep { color: var(--muted); font-size: 13.5px }
 ol.srcs a { color: var(--ink); overflow-wrap: anywhere }
 ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-soft) }
 .note { font-size: 13.5px; color: var(--muted); font-style: italic; margin: 0 }
-.hint a, .note a, .why a, .th dd a, .meta span a { color: var(--ink) }
+.hint a, .note a, .why a, .th dd a, .th .thtext a, .meta span a { color: var(--ink) }
 
 /* Zahlen */
 .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px }
@@ -184,12 +185,12 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
 <div class="kk-kopf"><div class="kk-in">
   <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
 </div></div>
-<div class="wrap">
+<main class="wrap" id="inhalt">
   <header>
     <div class="brand">
       <div class="brand-text">
         <div class="eyebrow">Deutscher Krieg 1866 · Deutsch-Französischer Krieg 1870/71</div>
-        <h1>Die Kriegserlebnisse des Feldwebels Luchmann</h1>
+        <p class="h1">Die Kriegserlebnisse des Feldwebels Luchmann</p>
       </div>
     </div>
     <nav class="pages" aria-label="Seiten">
@@ -202,7 +203,7 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
     </nav>
     <div class="evhead">
       <div class="eyebrow">Quellenkritik</div>
-      <h2 class="evtitle">Tagebuch und Regimentsgeschichte</h2>
+      <h1 class="evtitle">Tagebuch und Regimentsgeschichte</h1>
     </div>
     <p class="lede">Für jede Station der Karte ist geprüft, ob die Regimentsgeschichte von 1875 und, bei Schlachtdaten, Wikipedia das Tagebuch bestätigen. Luchmanns Erinnerung ist bei Orten und Abläufen meist genau, bei Daten und Zahlen oft nicht.</p>
   </header>
@@ -227,10 +228,10 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
   <section class="sect" aria-labelledby="muH">
     <h2 id="muH">Muster der Abweichungen</h2>
     <div class="theses">
-      <div class="th lead"><h3>Daten um Tage oder Wochen verschoben</h3><dl><dd>Ausmarsch „16. Juni“ statt 16. Mai 1866, Königgrätz „2. Juli“ statt 3. Juli, Beaune-la-Rolande „29.“ statt 28. November, Bellegarde „30. November“ statt 2. Dezember, Rückkehr „Juli“ statt Juni 1867.</dd></dl></div>
-      <div class="th"><h3>Zahlen aufgerundet</h3><dl><dd>Bei Spichern 300 statt 207 Mann Verlust des Bataillons, in Beaune-la-Rolande 600 statt etwa 400 Gefangene, in Göding 400 bis 500 statt 100 Zigarren je Mann.</dd></dl></div>
-      <div class="th"><h3>Orte verwechselt oder zusammengezogen</h3><dl><dd>Parade bei „Nikolsburg“ statt auf dem Marchfeld, der Elbübergang vor statt nach Königgrätz, Mobilmachung und Kriegserklärung am selben Tag.</dd></dl></div>
-      <div class="th"><h3>Was sich bestätigt</h3><dl><dd>Wege, Quartiere und Gefechte des Füsilier-Bataillons, die Namen der Offiziere (oft in eigener Schreibung) und Luchmanns eigene Rolle bei Spichern und Mars-la-Tour, die die Regimentsgeschichte namentlich nennt.</dd></dl></div>
+      <div class="th lead"><h3>Daten um Tage oder Wochen verschoben</h3><p class="thtext">Ausmarsch „16. Juni“ statt 16. Mai 1866, Königgrätz „2. Juli“ statt 3. Juli, Beaune-la-Rolande „29.“ statt 28. November, Bellegarde „30. November“ statt 2. Dezember, Rückkehr „Juli“ statt Juni 1867.</p></div>
+      <div class="th"><h3>Zahlen aufgerundet</h3><p class="thtext">Bei Spichern 300 statt 207 Mann Verlust des Bataillons, in Beaune-la-Rolande 600 statt etwa 400 Gefangene, in Göding 400 bis 500 statt 100 Zigarren je Mann.</p></div>
+      <div class="th"><h3>Orte verwechselt oder zusammengezogen</h3><p class="thtext">Parade bei „Nikolsburg“ statt auf dem Marchfeld, der Elbübergang vor statt nach Königgrätz, Mobilmachung und Kriegserklärung am selben Tag.</p></div>
+      <div class="th"><h3>Was sich bestätigt</h3><p class="thtext">Wege, Quartiere und Gefechte des Füsilier-Bataillons, die Namen der Offiziere (oft in eigener Schreibung) und Luchmanns eigene Rolle bei Spichern und Mars-la-Tour, die die Regimentsgeschichte namentlich nennt.</p></div>
     </div>
   </section>
   <section class="sect" aria-labelledby="f1866">
@@ -588,7 +589,7 @@ ol.srcs li:target { background: var(--red-soft); outline: 6px solid var(--red-so
   </section>
   <p class="note">Die vollständige Belegmatrix mit Fundstellen liegt beim Herausgeber der Website. Wörtliche Zitate aus der Regimentsgeschichte sind in heutige Schreibung übertragen (ſ → s); die Schreibweise der Namen folgt dem Original.</p>
   <p class="qnav"><a class="qbtn" href="quellen-abgleich.html">Quellen</a></p>
-</div>
+</main>
 <script src="site.js" defer></script>
 <footer class="kk-fuss"><div class="kk-in">
   <p><a href="https://kaffeeundkommiss.github.io/">Kaffee und Kommiss</a>: Politik, Geschichte und Sicherheitspolitik mit Quellen. Private, nichtkommerzielle Zusammenstellung. Fehler gefunden? Bitte mit Quelle melden.</p>
