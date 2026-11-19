@@ -83,7 +83,7 @@ nav.pages a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px }
 .logo-text { fill: var(--ink); font: 700 12.5px var(--f-display); letter-spacing: .16em }
 @media (max-width: 560px) { .logo { width: 56px; height: 56px } .brand { gap: 12px } }
 .eyebrow { font: 600 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red) }
-h1 { font: 700 clamp(30px, 5vw, 50px)/1 var(--f-display); letter-spacing: .01em; margin: 0; text-wrap: balance; text-transform: uppercase }
+h1, .h1 { font: 700 clamp(30px, 5vw, 50px)/1 var(--f-display); letter-spacing: .01em; margin: 0; text-wrap: balance; text-transform: uppercase }
 .lede { margin: 4px 0 0; max-width: 68ch; color: var(--muted) }
 .intro { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--red); border-radius: 3px; padding: 14px 18px 16px; display: grid; gap: 8px; max-width: 860px }
 .intro h2 { font: 700 22px/1 var(--f-display); text-transform: uppercase; letter-spacing: .04em; margin: 0 }
@@ -339,7 +339,7 @@ ol.srclist a { color: var(--ink) } ol.srclist li:target { background: var(--red-
 <div class="kk-kopf"><div class="kk-in">
   <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
 </div></div>
-<div class="wrap">
+<main class="wrap" id="inhalt">
   <header>
     <div class="brand">
       <div class="brand-text">
@@ -416,7 +416,7 @@ ol.srclist a { color: var(--ink) } ol.srclist li:target { background: var(--red-
       <div class="ruler" id="ruler"><div class="axis"></div><div class="prog" id="prog"></div><div class="playhead" id="playhead"></div></div>
     </section>
 
-    <aside class="panel" id="panel" aria-live="polite">
+    <section class="panel" id="panel" aria-label="Ausgewählter Schritt" aria-live="polite">
       <div class="count"><span id="pCount"></span><span id="pFront"></span></div>
       <h2 id="pName"></h2>
       <div class="sub" id="pSub"></div>
@@ -431,7 +431,7 @@ ol.srclist a { color: var(--ink) } ol.srclist li:target { background: var(--red-
           <div class="src" id="pSrc"></div>
         </div>
       </details>
-    </aside>
+    </section>
     <details class="legend-m" id="legendM"><summary>Legende</summary></details>
   </section>
 
@@ -459,7 +459,7 @@ ol.srclist a { color: var(--ink) } ol.srclist li:target { background: var(--red-
 
   <p class="sources">Datengrundlage: Luchmanns Tagebuch in der Abschrift von 1994 und die Regimentsgeschichte von Hugo von Mueller (1875), dazu Wikipedia für Schlachtdaten. Die Orte sind nach ihrer heutigen Lage eingetragen und auf etwa 1–2 km genau; Wege zwischen den Stationen sind gerade Linien und damit schematisch. Grundkarte: Natural Earth (gemeinfrei), heutige Grenzen. Höhenlinien: Terrain Tiles (AWS Open Data, u. a. SRTM), geglättet. Dörfer: GeoNames über cities.json (CC BY 4.0), Auswahl nahe am Weg.</p>
   <p class="qnav"><a class="qbtn" href="quellen-karte.html">Quellen</a></p>
-</div>
+</main>
 <script src="karte-daten-1870.js"></script>
 <script src="karte.js"></script>
 <script src="site.js" defer></script>
