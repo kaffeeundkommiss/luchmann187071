@@ -96,7 +96,7 @@ def head(fn, title, desc, style, breit=False):
   <nav class="kk-bereiche" aria-label="Bereiche"><a href="https://kaffeeundkommiss.github.io/geschichte/" aria-current="true">Geschichte</a><a href="https://kaffeeundkommiss.github.io/sicherheitspolitik/"><span class="kk-lang">Sicherheitspolitik</span><span class="kk-kurz">Sicherheit</span></a><a href="https://kaffeeundkommiss.github.io/politik/">Politik</a></nav>
 </div></div>
 {pfad(fn)}<div class="kk-kopf"><div class="kk-in">
-  <a class="kk-schild" href="index.html"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
+  <a class="kk-schild" href="https://kaffeeundkommiss.github.io/geschichte/einigungskriege/"><img src="icons/favicon.svg" alt="" width="44" height="44"><span><span class="kk-name" style="display:block">Deutsche Einigungskriege</span><span class="kk-unter" style="display:block">Feldwebel Wilhelm Luchmann 1866 und 1870/71</span></span></a>
 </div></div>
 <div class="wrap">
 """
