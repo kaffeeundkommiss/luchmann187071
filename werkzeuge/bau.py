@@ -149,7 +149,7 @@ STATUS_LEGEND = """  <section class="sect" aria-labelledby="stH">
 """
 
 # ---------- Kartendaten ----------
-CONTROLS_PANEL = """    <section class="controls" aria-label="Zeitleiste">
+CONTROLS_PANEL_VORLAGE = """    <section class="controls" aria-label="Zeitleiste">
       <div class="btns">
         <div class="btns-main">
           <button type="button" id="prev" aria-label="Vorheriger Schritt">◀ Zurück</button>
@@ -184,6 +184,10 @@ CONTROLS_PANEL = """    <section class="controls" aria-label="Zeitleiste">
       </details>
     </section>
     <details class="legend-m" id="legendM"><summary>Legende</summary></details>
+  </section>
+
+  <section class="hinweise" aria-label="Hinweise zur Karte">
+    {SO_LIEST}
   </section>
 
   <section>
@@ -275,7 +279,6 @@ def build_map(camp):
   <details class="intro" id="intro" open>
     <summary><h2>{I['feldzug']}</h2><span class="tgl" aria-hidden="true"><span class="op">Einblenden</span><span class="cl">Ausblenden</span></span></summary>
     <p>{I['lede']} {n} Stationen, jede mit dem Abgleich gegen die Regimentsgeschichte von 1875. Worum es insgesamt geht, steht in der <a href="index.html">Übersicht</a>; der andere Feldzug hat eine eigene <a href="{MAPINFO[other_c]['file']}">{MAPINFO[other_c]['label']}</a>.</p>
-    {SO_LIEST}
   </details>
 
   <section class="stage">
@@ -315,7 +318,7 @@ def build_map(camp):
     </div>
 """
     # Bedienteil und Panel aus der bisherigen Vorlage
-    h += CONTROLS_PANEL
+    h += CONTROLS_PANEL_VORLAGE.replace("{SO_LIEST}", SO_LIEST)
     oth = MAPINFO[other_c]
     h += f"""
   <section class="persons" aria-labelledby="weH">
