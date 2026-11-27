@@ -18,7 +18,7 @@ INDEXSTYLE = (ROOT / "werkzeuge" / "karte.css").read_text()
 PAGES = [("index.html", "Übersicht"), ("karte-1866.html", "Karte 1866"), ("karte-1870.html", "Karte 1870/71"), ("abgleich.html", "Abgleich"), ("personen.html", "Personen"), ("tagebuch.html", "Tagebuch")]
 NAMES = json.load(open("werkzeuge/orte-namen.json"))
 
-PFAD_A = '<nav class="kk-pfad" aria-label="Pfad"><div class="kk-in"><a href="https://kaffeeundkommiss.github.io/geschichte/">Geschichte</a> › <a href="https://kaffeeundkommiss.github.io/geschichte/einigungskriege/">Einigungskriege 1864–1871</a> › '
+PFAD_A = '<nav class="kk-pfad" aria-label="Pfad"><div class="kk-in"><a href="https://kaffeeundkommiss.github.io/geschichte/">Geschichte</a> › <a href="https://kaffeeundkommiss.github.io/geschichte/einigungskriege-kaiserreich/">Einigungskriege und Kaiserreich</a> › <a href="https://kaffeeundkommiss.github.io/geschichte/einigungskriege/">Einigungskriege 1864–1871</a> › '
 VORSCHAU = re.compile(r'<!-- Vorschau für Linkvorschauen, erzeugt mit werkzeuge/vorschau\.js -->\n(?:<meta (?:property="og:image|name="twitter:)[^>]*>\n)*')
 def close_idx(s,start,tag='div'):
     # start = index of opening tag; return index of matching closing tag
